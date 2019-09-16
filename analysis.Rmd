@@ -1,0 +1,16 @@
+---
+title: "Cognitive Aspects of Software Development: a SMS"
+output: html_notebook
+---
+
+```{r}
+# Keep things nice and tidy, all libraries go here
+library(readxl)
+library(tidyverse)
+```
+```{r}
+data <- read_excel("data.xlsx", skip = 1)
+data <- data %>% filter(is.na(Exclude))
+```
+
+
