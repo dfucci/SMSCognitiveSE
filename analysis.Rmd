@@ -1,6 +1,8 @@
 ---
-title: "Cognitive Aspects of Software Development: a SMS"
-output: html_notebook
+title: 'Cognitive Aspects of Software Development: a SMS'
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r}
@@ -11,6 +13,49 @@ library(tidyverse)
 ```{r}
 data <- read_excel("data.xlsx", skip = 1)
 data <- data %>% filter(is.na(Exclude))
+```
+
+# Visualizing number of publications over time
+```{r}
+ggplot(data, aes(x=Year)) + geom_freqpoly() +  theme_bw() + ylab("Number of publications")
+```
+
+
+```{r}
+# Cleaning not needed values 
+data<-data %>% 
+    mutate(Academia = replace(Academia, Academia == "?", NA)) %>%
+    mutate(Industry = replace(Industry, Industry == "?", NA))
+
+type_of_study <- function(row){
+  if (is.na(row["Academia"]) & is.na(row["Industry"]) ){
+    return("None")
+  }
+  else if(row["Academia"] == "1.0" & is.na(row["Industry"])) {
+    return("Academia")
+  }
+  else if(is.na(row["Academia"])  & row["Industry"] == "1.0") {
+    return("Industry")
+  }
+  else if (row["Academia"]=="1.0" & row["Industry"]=="1.0") {
+    return("Both")
+  }
+}
+
+res <- apply(data, 1, type_of_study)
+data["Type"] <- unlist(res)
+```
+
+# Number of publications according to their type
+```{r}
+data %>% 
+  mutate(Type = fct_infreq(Type, ordered = T)) %>% 
+ggplot(aes(x=Type)) + 
+  geom_bar(width = .5) +
+  xlab("Type of publication") + 
+  ylab("Number of publications") + 
+  theme_bw()
+
 ```
 
 
