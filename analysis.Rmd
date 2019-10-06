@@ -17,33 +17,28 @@ data <- data %>% filter(is.na(Exclude))
 
 # Visualizing number of publications over time
 ```{r}
-ggplot(data, aes(x=Year)) + geom_freqpoly() +  theme_bw() + ylab("Number of publications")
+ggplot(data, aes(x=as.factor(Year))) + 
+  geom_bar() +  
+  ylab("Number of publications") +
+  xlab("Year") + 
+  geom_text(stat='count', aes(label=..count..), vjust=2, color="white", size = 2.5) + 
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 ```
 
 
 ```{r}
+
 # Cleaning not needed values 
 data<-data %>% 
     mutate(Academia = replace(Academia, Academia == "?", NA)) %>%
     mutate(Industry = replace(Industry, Industry == "?", NA))
 
-type_of_study <- function(row){
-  if (is.na(row["Academia"]) & is.na(row["Industry"]) ){
-    return("None")
-  }
-  else if(row["Academia"] == "1.0" & is.na(row["Industry"])) {
-    return("Academia")
-  }
-  else if(is.na(row["Academia"])  & row["Industry"] == "1.0") {
-    return("Industry")
-  }
-  else if (row["Academia"]=="1.0" & row["Industry"]=="1.0") {
-    return("Both")
-  }
-}
-
-res <- apply(data, 1, type_of_study)
-data["Type"] <- unlist(res)
+data<-data %>%
+  mutate(Type = case_when(is.na(Academia) & is.na(Industry) ~ "None", 
+                       Academia == "1.0" & is.na(Industry) ~ "Academia",
+                       Industry == "1.0" & is.na(Academia) ~ "Industry", 
+                       TRUE ~ "Both"))
 ```
 
 # Number of publications according to their type
@@ -54,8 +49,8 @@ ggplot(aes(x=Type)) +
   geom_bar(width = .5) +
   xlab("Type of publication") + 
   ylab("Number of publications") + 
+  geom_text(stat='count', aes(label=..count..), vjust=3, color="white", size = 4) +
   theme_bw()
-
 ```
 
 
