@@ -1,8 +1,6 @@
 ---
 title: 'Cognitive Aspects of Software Development: a SMS'
-output:
-  html_document:
-    df_print: paged
+output: html_notebook
 ---
 
 ```{r}
