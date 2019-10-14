@@ -1,12 +1,19 @@
 ---
 title: 'Cognitive Aspects of Software Development: a SMS'
-output: html_notebook
+output:
+  html_document: 
+    df_print: tibble
+    fig_caption: yes
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r}
 # Keep things nice and tidy, all libraries go here
 library(readxl)
 library(tidyverse)
+library(knitr)
+library(kableExtra)
 ```
 ```{r}
 data <- read_excel("data.xlsx", skip = 1)
@@ -51,4 +58,35 @@ ggplot(aes(x=Type)) +
   theme_bw()
 ```
 
+# Number of publications categorized according to SWEBoK Areas. 
+A publication can be in more than one category at the same time.
+
+```{r}
+data %>% 
+  select(7:21) %>% # selecting columns corresponding to the SWEBoK Areas
+  mutate_all(replace_na,0) %>% 
+  summarise_all(sum) %>% 
+  gather(key = "SWEBOKArea", value = "publications", 1:15) %>% 
+  arrange(-publications) %>%  
+  mutate(SWEBOKArea = factor(SWEBOKArea, SWEBOKArea)) %>% 
+  ggplot(aes(x=SWEBOKArea, y=publications)) + 
+  geom_bar(stat="identity") + 
+  geom_text(aes(label=publications), vjust=-0.3, color="black", size = 4) + 
+  xlab("SWEBoK Area") + 
+  ylab("Number of publications") +
+  theme_bw()
+```
+
+# Co-occurrences of SWEBoK Areas
+```{r}
+data %>% 
+  select(7:21) %>% # selecting columns corresponding to the SWEBoK Areas
+  mutate_all(replace_na,0) %>% 
+  as.matrix() %>% 
+  crossprod() %>% 
+  kable() %>%
+  kable_styling("striped", full_width = T) %>%
+  column_spec(1, bold = T)
+  
+```
 
