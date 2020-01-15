@@ -87,6 +87,30 @@ data %>%
   kable() %>%
   kable_styling("striped", full_width = T) %>%
   column_spec(1, bold = T)
-  
+```
+
+```{r}
+x <- data %>% select(7:21, matches('Attention|Memory|Cognitive load|CL$|Problem solving|Reasoning|Decision making|Errors| biases$' )) %>%
+  mutate_all(replace_na, 0) %>%
+  mutate(`Problem solving`, `Problem solving` = as.numeric(`Problem solving`)) %>% 
+  gather(key="SWEBOK", value = pubs, 1:15) %>% # use SWEBOK area as factor
+  filter(pubs == 1) %>% # select areas for which there are publications
+  group_by(SWEBOK) %>% 
+  summarise_all(sum) %>% # number of publication for each area 
+  select(-pubs) %>%  # remove pubs to reuse it later
+  gather(key = "Taxonomy", value = "count", 2:17) %>%  # count publications in each cognitive taxonomy area
+  mutate(label = str_replace(as.character(count), "^0", "")) # add label for later
+```
+```{r}
+# Bubble plot
+x <- arrange(x, Taxonomy)
+xf<-x$Taxonomy
+xfu<-unique(xf)
+x$Taxonomy<-factor(xf,levels=xfu)
+p<-ggplot(x)
+p + geom_point(aes(x = fct_infreq(SWEBOK), y = fct_rev(Taxonomy)), size=x$count*1.6, shape=21, fill="white", alpha=0.60) +
+geom_text(aes(x = fct_infreq(SWEBOK), y = fct_rev(Taxonomy), label=label), size=2) +
+theme(axis.text.x = element_text(angle = 45, hjust = 1.1, size=9,colour="black"), axis.text.y = element_text(size=8,colour="black"), axis.title.x = element_text(size=10), axis.title.y = element_text(size=10,colour = "black",vjust=0.12), panel.grid.major = element_line(linetype = "dashed", size=0.1, color="black"))+
+  labs(x="SWEBOK Area",y = "Taxonomy Area")
 ```
 
