@@ -14,6 +14,7 @@ library(readxl)
 library(tidyverse)
 library(knitr)
 library(kableExtra)
+library(svglite)
 ```
 ```{r}
 data <- read_excel("data.xlsx", skip = 1)
@@ -29,6 +30,7 @@ ggplot(data, aes(x=as.factor(Year))) +
   geom_text(stat='count', aes(label=..count..), vjust=2, color="white", size = 2.5) + 
   theme_bw() + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+ggsave("yearly_distribution.eps")
 ```
 
 
@@ -56,6 +58,7 @@ ggplot(aes(x=Type)) +
   ylab("Number of publications") + 
   geom_text(stat='count', aes(label=..count..), vjust=3, color="white", size = 4) +
   theme_bw()
+ggsave("academia_industry_distribution.eps")
 ```
 
 # Number of publications categorized according to SWEBoK Areas. 
@@ -75,6 +78,8 @@ data %>%
   xlab("SWEBoK Area") + 
   ylab("Number of publications") +
   theme_bw()
+
+ggsave("swebok_distribution.eps")
 ```
 
 # Co-occurrences of SWEBoK Areas
@@ -112,5 +117,7 @@ p + geom_point(aes(x = fct_infreq(SWEBOK), y = fct_rev(Taxonomy)), size=x$count*
 geom_text(aes(x = fct_infreq(SWEBOK), y = fct_rev(Taxonomy), label=label), size=2) +
 theme(axis.text.x = element_text(angle = 45, hjust = 1.1, size=9,colour="black"), axis.text.y = element_text(size=8,colour="black"), axis.title.x = element_text(size=10), axis.title.y = element_text(size=10,colour = "black",vjust=0.12), panel.grid.major = element_line(linetype = "dashed", size=0.1, color="black"))+
   labs(x="SWEBOK Area",y = "Taxonomy Area")
+theme_bw()
+ggsave("swebok_taxonomy_bubble.eps")
 ```
 
