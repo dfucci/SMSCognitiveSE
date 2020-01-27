@@ -120,4 +120,14 @@ theme(axis.text.x = element_text(angle = 45, hjust = 1.1, size=9,colour="black")
 theme_bw()
 ggsave("swebok_taxonomy_bubble.eps")
 ```
+```{r}
+# Preparing the dataset for analysing the research methods
+data<-data %>%
+  mutate(Quantitative = case_when(`Quantit. measures` == 1 | `Task performance` == 1 | `Physiological meas.` == 1 | `Subjective ratings` == 1 | `Behavioral meas.` == 1 ~ 1)) %>% 
+  mutate(Quantitative = replace_na(Quantitative, 0)) %>%  
+  mutate(Qualitative = case_when(Fieldwork == 1 | Interview == 1 | `Qualit. measures` == 1 | `Task-based` == 1 | `Open observation` == 1 ~ 1)) %>%  
+  mutate(Qualitative = replace_na(Qualitative, 0)) %>% 
+  mutate(Both = if_else(Qualitative == 1 & Quantitative == 1, 1, 0))
+
+```
 
