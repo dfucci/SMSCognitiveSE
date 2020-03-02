@@ -1,10 +1,11 @@
 ---
 title: 'Cognitive Aspects of Software Development: a SMS'
 output:
-  html_document: 
+  html_document:
     df_print: tibble
     fig_caption: yes
-editor_options: 
+  pdf_document: default
+editor_options:
   chunk_output_type: inline
 ---
 
@@ -116,8 +117,7 @@ p<-ggplot(x)
 p + geom_point(aes(x = fct_infreq(SWEBOK), y = fct_rev(Taxonomy)), size=x$count*1.6, shape=21, fill="white", alpha=0.60) +
 geom_text(aes(x = fct_infreq(SWEBOK), y = fct_rev(Taxonomy), label=label), size=2) +
 theme(axis.text.x = element_text(angle = 45, hjust = 1.1, size=9,colour="black"), axis.text.y = element_text(size=8,colour="black"), axis.title.x = element_text(size=10), axis.title.y = element_text(size=10,colour = "black",vjust=0.12), panel.grid.major = element_line(linetype = "dashed", size=0.1, color="black"))+
-  labs(x="SWEBOK Area",y = "Taxonomy Area")
-theme_bw()
+  labs(x="SWEBOK Area",y = "Taxonomy Area") + theme_bw()
 ggsave("swebok_taxonomy_bubble.eps")
 ```
 ```{r}
@@ -129,5 +129,22 @@ data<-data %>%
   mutate(Qualitative = replace_na(Qualitative, 0)) %>% 
   mutate(Both = if_else(Qualitative == 1 & Quantitative == 1, 1, 0))
 
+```
+
+
+# The graphs below are prepared for IEEE Software Submission
+
+Number of publications per year according to SWEBOK areas
+```{r}
+# Creating a temp dataset with missing publications years (i.e., year for which there was no publication)
+mydf.temp <- data %>% filter(is.na(Exclude)) %>% select(c(5, 7:21)) %>% mutate_all(replace_na, 0) %>% gather(key="SWEBOKArea", value = "publications", 2:16) %>% group_by(Year, SWEBOKArea) %>% summarise(total=sum(publications)) 
+
+# filling in the missing years
+mydf.temp.complete <- mydf.temp %>% complete(Year=seq(1973,2016))
+
+# plot
+mydf.temp.complete %>% ggplot(aes(x=as.factor(Year), fill=SWEBOKArea, y = total)) + geom_bar(stat="identity") + xlab("Year") + ylab("Publications") + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggsave("years_swebok.pdf")
 ```
 
