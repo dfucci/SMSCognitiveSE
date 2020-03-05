@@ -137,14 +137,40 @@ data<-data %>%
 Number of publications per year according to SWEBOK areas
 ```{r}
 # Creating a temp dataset with missing publications years (i.e., year for which there was no publication)
-mydf.temp <- data %>% filter(is.na(Exclude)) %>% select(c(5, 7:21)) %>% mutate_all(replace_na, 0) %>% gather(key="SWEBOKArea", value = "publications", 2:16) %>% group_by(Year, SWEBOKArea) %>% summarise(total=sum(publications)) 
+mydf.temp <- data %>% 
+  filter(is.na(Exclude)) %>% 
+  select(c(5, 7:21)) %>% 
+  mutate_all(replace_na, 0) %>% 
+  gather(key="SWEBOKArea", value = "publications", 2:16) %>% 
+  group_by(Year, SWEBOKArea) %>% 
+  summarise(total=sum(publications)) 
 
 # filling in the missing years
-mydf.temp.complete <- mydf.temp %>% complete(Year=seq(1973,2016))
+mydf.temp.complete <- mydf.temp %>% 
+  complete(Year=seq(1973,2016))
 
 # plot
-mydf.temp.complete %>% ggplot(aes(x=as.factor(Year), fill=SWEBOKArea, y = total)) + geom_bar(stat="identity") + xlab("Year") + ylab("Publications") + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+mydf.temp.complete %>% 
+  ggplot(aes(x=as.factor(Year), fill=SWEBOKArea, y = total)) + 
+  geom_bar(stat="identity") + 
+  xlab("Year") + ylab("Publications") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 7))
 
 ggsave("years_swebok.pdf")
 ```
+```{r}
+data
+```
+
+```{r}
+data <-  data %>% complete(Year=seq(1973,2016)) 
+
+data <-  data %>% 
+  mutate(research_method = if_else(Both==1, "Mixed", if_else(Qualitative==1, "Qualitative", "Quantitative"))) 
+
+data %>%  ggplot(aes(x=as.factor(Year), fill=research_method)) + geom_bar() + scale_fill_discrete(name="Research methods", labels = c("Mixed", "Qualitative", "Quantitative", ""), na.value = "transparent") + xlab("Year") + ylab("Publications") +   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 5))
+
+ggsave("years_researchmethods.pdf")
+```
+
 
