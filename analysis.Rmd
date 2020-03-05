@@ -137,40 +137,44 @@ data<-data %>%
 Number of publications per year according to SWEBOK areas
 ```{r}
 # Creating a temp dataset with missing publications years (i.e., year for which there was no publication)
-mydf.temp <- data %>% 
+data %>% 
   filter(is.na(Exclude)) %>% 
-  select(c(5, 7:21)) %>% 
-  mutate_all(replace_na, 0) %>% 
-  gather(key="SWEBOKArea", value = "publications", 2:16) %>% 
-  group_by(Year, SWEBOKArea) %>% 
-  summarise(total=sum(publications)) 
-
-# filling in the missing years
-mydf.temp.complete <- mydf.temp %>% 
-  complete(Year=seq(1973,2016))
-
-# plot
-mydf.temp.complete %>% 
-  ggplot(aes(x=as.factor(Year), fill=SWEBOKArea, y = total)) + 
-  geom_bar(stat="identity") + 
-  xlab("Year") + ylab("Publications") + 
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 7))
+  select(c(Year, SR:EF)) %>% 
+  gather("SWEBOK", "publications", 2:16) %>% 
+  mutate_all(replace_na, 0) %>%
+  group_by(Year,SWEBOK)  %>% 
+  summarise(total=sum(publications)) %>% 
+  ggplot(aes(x=as.factor(Year), fill=SWEBOK, y=total)) +  geom_bar(stat="sum") +
+  xlab("Year") + ylab("Publications") + scale_fill_discrete(name = "SWEBOK Areas") + guides(size = F) + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 6))
 
 ggsave("years_swebok.pdf")
 ```
-```{r}
-data
-```
 
+### Evolution of research methods over the years
 ```{r}
 data <-  data %>% complete(Year=seq(1973,2016)) 
 
 data <-  data %>% 
   mutate(research_method = if_else(Both==1, "Mixed", if_else(Qualitative==1, "Qualitative", "Quantitative"))) 
 
-data %>%  ggplot(aes(x=as.factor(Year), fill=research_method)) + geom_bar() + scale_fill_discrete(name="Research methods", labels = c("Mixed", "Qualitative", "Quantitative", ""), na.value = "transparent") + xlab("Year") + ylab("Publications") +   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 5))
+data %>%  ggplot(aes(x=as.factor(Year), fill=research_method)) + geom_bar() + scale_fill_discrete(name="Research method", labels = c("Mixed", "Qualitative", "Quantitative", ""), na.value = "transparent") + xlab("Year") + ylab("Publications") +   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 5))
 
 ggsave("years_researchmethods.pdf")
 ```
 
+
+### Prevalence of research methods in the SWEBOK areas
+```{r}
+data.swebok.researchmethod <- data %>% 
+  select(7:21, research_method) %>% 
+  mutate_all(replace_na,0) %>% 
+  group_by(research_method) %>% 
+  summarise_at(vars(SR:EF), sum) %>% 
+  slice(2:4) %>% 
+  gather("SWEBOK", "Publications", 2:16) 
+
+data.swebok.researchmethod %>% 
+  ggplot(aes(x=reorder(SWEBOK, Publications, function(x){sum(x)}), y=Publications, fill=research_method)) + geom_bar(stat = "identity") + 
+  coord_flip() + xlab("SWEBOK areas") + scale_fill_discrete(name = "Research method")
+```
 
