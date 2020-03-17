@@ -215,7 +215,9 @@ data %>%
   ggplot(aes(fct_rev(SWEBOK), fct_rev(Taxonomy), fill=freq)) + 
   geom_tile() + scale_fill_continuous(low="#fff9f7", high="red") +
   xlab("SWEBOK") + ylab("Taxonomy") + guides(fill=guide_legend(title="")) + 
-  theme_minimal()
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
+
 
 ggsave("taxomony_swebok_cooccurences.pdf")
 ```
@@ -230,7 +232,8 @@ data %>%
   ggplot(aes(Method, fct_rev(Taxonomy), fill=freq)) + geom_tile() +
   xlab("Method") + ylab("Taxonomy") + guides(fill=guide_legend(title="")) + 
   scale_fill_continuous(low="#fff9f7", high="darkgreen") +
-  theme_minimal() 
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
 
 ggsave("taxonomy_method_cooccurences.pdf")
 ```
