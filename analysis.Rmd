@@ -16,6 +16,7 @@ library(tidyverse)
 library(knitr)
 library(kableExtra)
 library(svglite)
+library(plotly)
 ```
 ```{r}
 data <- read_excel("data.xlsx", skip = 1)
@@ -85,14 +86,16 @@ ggsave("swebok_distribution.eps")
 
 # Co-occurrences of SWEBoK Areas
 ```{r}
-data %>% 
+swebokareas<-data %>% 
   select(7:21) %>% # selecting columns corresponding to the SWEBoK Areas
   mutate_all(replace_na,0) %>% 
   as.matrix() %>% 
-  crossprod() %>% 
-  kable() %>%
-  kable_styling("striped", full_width = T) %>%
-  column_spec(1, bold = T)
+  crossprod()
+
+swebokareas %>% 
+  kable()
+
+plot_ly(x=c("SR", "SD", "SC", "ST", "SM", "SEM", "SEP", "SEMM", "SQ", "SEPP", "SEE", "CF", "MF", "EF"), y=c("SR", "SD", "SC", "ST", "SM", "SEM", "SEP", "SEMM", "SQ", "SEPP", "SEE", "CF", "MF", "EF"), z=swebokareas, type="heatmap")
 ```
 
 ```{r}
@@ -100,7 +103,7 @@ x <- data %>% select(7:21, matches('Attention|Memory|Cognitive load|CL$|Problem 
   mutate_all(replace_na, 0) %>%
   mutate(`Problem solving`, `Problem solving` = as.numeric(`Problem solving`)) %>% 
   gather(key="SWEBOK", value = pubs, 1:15) %>% # use SWEBOK area as factor
-  filter(pubs == 1) %>% # select areas for which there are publications
+  filter(pubs > 0) %>% # select areas for which there are publications
   group_by(SWEBOK) %>% 
   summarise_all(sum) %>% # number of publication for each area 
   select(-pubs) %>%  # remove pubs to reuse it later
@@ -113,12 +116,13 @@ x <- arrange(x, Taxonomy)
 xf<-x$Taxonomy
 xfu<-unique(xf)
 x$Taxonomy<-factor(xf,levels=xfu)
+
 p<-ggplot(x)
-p + geom_point(aes(x = fct_infreq(SWEBOK), y = fct_rev(Taxonomy)), size=x$count*1.6, shape=21, fill="white", alpha=0.60) +
+p + geom_point(aes(x = fct_infreq(SWEBOK), y = fct_rev(Taxonomy), size=count), shape=21, fill="white", alpha=0.60) +
 geom_text(aes(x = fct_infreq(SWEBOK), y = fct_rev(Taxonomy), label=label), size=2) +
 theme(axis.text.x = element_text(angle = 45, hjust = 1.1, size=9,colour="black"), axis.text.y = element_text(size=8,colour="black"), axis.title.x = element_text(size=10), axis.title.y = element_text(size=10,colour = "black",vjust=0.12), panel.grid.major = element_line(linetype = "dashed", size=0.1, color="black"))+
   labs(x="SWEBOK Area",y = "Taxonomy Area") + theme_bw()
-ggsave("swebok_taxonomy_bubble.eps")
+ggsave("swebok_taxonomy_bubble.pdf")
 ```
 ```{r}
 # Preparing the dataset for analysing the research methods
@@ -176,5 +180,58 @@ data.swebok.researchmethod <- data %>%
 data.swebok.researchmethod %>% 
   ggplot(aes(x=reorder(SWEBOK, Publications, function(x){sum(x)}), y=Publications, fill=research_method)) + geom_bar(stat = "identity") + 
   coord_flip() + xlab("SWEBOK areas") + scale_fill_discrete(name = "Research method")
+
+ggsave("SWBOK_researchmethods.pdf")
+```
+# Distribution of publications 
+```{r}
+data %>% 
+  filter(!is.na(Identifier)) %>%
+  select(Identifier, Attention:`Extrinsic CL`, Perception:`Social Cognition`, Fieldwork:`Behavioral meas.`) %>% 
+  gather(Taxonomy, value, Attention:`Social Cognition`) %>% 
+  filter(!is.na(value)) %>% 
+  select(-value) %>% 
+  gather(Method, value, Fieldwork:`Behavioral meas.`) %>% 
+  filter(!is.na(value)) %>% 
+  arrange(Identifier) %>% 
+  select(-Identifier, -value) %>%  
+  group_by(Taxonomy, Method) %>% 
+  tally(name = "Amount") %>% 
+  ggplot(aes(x=Method, y=Taxonomy, fill=Amount)) + 
+  geom_point(aes(size=Amount), alpha=0.5) + 
+  theme(legend.position = "") + theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
+
+ggsave("taxonomy_methods.pdf")
+```
+
+```{r}
+data %>% 
+  select(SR:EF, Attention:`Extrinsic CL`, Perception:`Social Cognition`) %>%
+  mutate_all(replace_na,0) %>% 
+  gather(SWEBOK, value, SR:EF) %>% 
+  gather(Taxonomy, value2, Attention:`Social Cognition`) %>% 
+  count(SWEBOK, Taxonomy, value, value2) %>% 
+  mutate(freq=ifelse(value==1 & value2==1, n, 0)) %>% 
+  ggplot(aes(fct_rev(SWEBOK), fct_rev(Taxonomy), fill=freq)) + 
+  geom_tile() + scale_fill_continuous(low="#fff9f7", high="red") +
+  xlab("SWEBOK") + ylab("Taxonomy") + guides(fill=guide_legend(title="")) + 
+  theme_minimal()
+
+ggsave("taxomony_swebok_cooccurences.pdf")
+```
+```{r}
+data %>% 
+  select(Attention:`Extrinsic CL`, Perception:`Social Cognition`, Fieldwork:`Behavioral meas.`) %>% 
+  mutate_all(replace_na,0) %>% 
+  gather(Taxonomy, value, Attention:`Social Cognition`) %>% 
+  gather(Method, value2, Fieldwork:`Behavioral meas.`) %>% 
+  count(Taxonomy, Method, value, value2) %>%
+  mutate(freq=ifelse(value==1 & value2==1, n, 0)) %>% 
+  ggplot(aes(Method, fct_rev(Taxonomy), fill=freq)) + geom_tile() +
+  xlab("Method") + ylab("Taxonomy") + guides(fill=guide_legend(title="")) + 
+  scale_fill_continuous(low="#fff9f7", high="darkgreen") +
+  theme_minimal() 
+
+ggsave("taxonomy_method_cooccurences.pdf")
 ```
 
