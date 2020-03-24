@@ -21,7 +21,7 @@ library(scales)
 ```
 ```{r}
 data <- read_excel("data.xlsx", skip = 1)
-data <- data %>% filter(is.na(Exclude))
+data <- data %>% filter(is.na(Exclude)) %>% select(-Exclude)
 ```
 
 # Visualizing number of publications over time
@@ -207,15 +207,28 @@ ggsave("taxonomy_methods.pdf")
 
 ```{r}
 data %>% 
-  select(SR:EF, Attention:`Extrinsic CL`, Perception:`Social Cognition`) %>%
+  select(SR:SEE, Attention:`Extrinsic CL`, Perception:`Social Cognition`) %>% 
   mutate_all(replace_na,0) %>% 
-  gather(SWEBOK, value, SR:EF) %>% 
   gather(Taxonomy, value2, Attention:`Social Cognition`) %>% 
-  count(SWEBOK, Taxonomy, value, value2) %>% 
+  mutate(Concept = case_when(Taxonomy %in% c("Attention", "Selective attention", "Divided attention", "Sustained attention") ~ "Attention", 
+                             Taxonomy %in% c("Memory", "Working memory", "Short-term memory", "Long-term memory") ~ "Memory", 
+                             Taxonomy %in% c("Cognitive load", "Extrinsic CL", "Intrinsic CL") ~ "Cognitive load", 
+                             Taxonomy == "Perception" ~ "Perception", 
+                             Taxonomy %in% c("Problem solving", "Reasoning", "Decision making") ~ "Reasoning", 
+                             Taxonomy %in% c("Errors", "Cognitive biases") ~ "Errors", 
+                             Taxonomy %in% c("Knowledge", "Explicit knowledge", "Tacit knowledge",  "Techn. tacit knowl.", "Cogn. tacit knowl.") ~ "Knowledge", 
+                             Taxonomy %in% c("Cognitive control", "Executive functions", "Inhibition") ~ "Cognitive control", 
+                             Taxonomy=="Social Cognition" ~ "Social cognition")) %>% 
+  gather(SWEBOK, value, SR:SEE) %>% 
+  count(SWEBOK, Concept, value, value2) %>% 
   mutate(freq=ifelse(value==1 & value2==1, n, 0)) %>% 
-  ggplot(aes(fct_rev(SWEBOK), fct_rev(Taxonomy), fill=freq)) + 
+  distinct(SWEBOK, Concept, freq) %>% 
+  group_by(SWEBOK, Concept) %>% 
+  summarize(total=sum(freq)) %>% 
+  ungroup() %>% 
+  ggplot(aes(fct_relevel(SWEBOK, c("SR", "SD", "SC", "ST", "SM", "SCM", "SEM", "SEP", "SEMM", "SQ", "SEPP", "SEE")), fct_rev(Concept), fill=total)) + 
   geom_tile() + scale_fill_continuous(low="#fff9f7", high="red") +
-  xlab("SWEBOK") + ylab("Topic") + guides(fill=guide_legend(title="")) + 
+  xlab("SWEBOK areas") + ylab("Concept") + guides(fill=guide_legend(title="")) + 
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
 
@@ -224,14 +237,25 @@ ggsave("taxomony_swebok_cooccurences.pdf")
 ```
 ```{r}
 data %>% 
-  select(Attention:`Extrinsic CL`, Perception:`Social Cognition`, Fieldwork:`Behavioral meas.`) %>% 
+  select(Attention:`Extrinsic CL`, Perception:`Social Cognition`,  `Qualit. measures`:`Behavioral meas.`) %>% 
   mutate_all(replace_na,0) %>% 
   gather(Taxonomy, value, Attention:`Social Cognition`) %>% 
-  gather(Method, value2, Fieldwork:`Behavioral meas.`) %>% 
-  count(Taxonomy, Method, value, value2) %>%
+  mutate(Concept = case_when(Taxonomy %in% c("Attention", "Selective attention", "Divided attention", "Sustained attention") ~ "Attention", 
+                             Taxonomy %in% c("Memory", "Working memory", "Short-term memory", "Long-term memory") ~ "Memory", 
+                             Taxonomy %in% c("Cognitive load", "Extrinsic CL", "Intrinsic CL") ~ "Cognitive load", 
+                             Taxonomy == "Perception" ~ "Perception", 
+                             Taxonomy %in% c("Problem solving", "Reasoning", "Decision making") ~ "Reasoning", 
+                             Taxonomy %in% c("Errors", "Cognitive biases") ~ "Errors", 
+                             Taxonomy %in% c("Knowledge", "Explicit knowledge", "Tacit knowledge",  "Techn. tacit knowl.", "Cogn. tacit knowl.") ~ "Knowledge", 
+                             Taxonomy %in% c("Cognitive control", "Executive functions", "Inhibition") ~ "Cognitive control", 
+                             Taxonomy=="Social Cognition" ~ "Social cognition")) %>% 
+  gather(Method, value2, `Qualit. measures`:`Behavioral meas.`) %>% 
+  count(Concept, Method, value, value2) %>%
   mutate(freq=ifelse(value==1 & value2==1, n, 0)) %>% 
-  ggplot(aes(Method, fct_rev(Taxonomy), fill=freq)) + geom_tile() +
-  xlab("Measure") + ylab("Topic") + guides(fill=guide_legend(title="")) + 
+  ggplot(aes(fct_relevel(Method, c("Qualit. measures","Fieldwork", "Interview", "Task-based", "Open observation", "Quantit. measures", "Task performance", "Physiological meas.", "Subjective ratings", "Behavioral meas.")), fct_rev(Concept), fill=freq)) + 
+  geom_tile() +
+  geom_vline(xintercept = 5.5, size=0.5, linetype="longdash", color="darkgrey") +
+  xlab("Assessment procedure") + ylab("Concept") + guides(fill=guide_legend(title="")) + 
   scale_fill_continuous(low="#fff9f7", high="darkgreen") +
   theme_minimal() + 
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
@@ -244,7 +268,7 @@ data %>% select(Year, Attention:`Extrinsic CL`, Perception:`Social Cognition`) %
 ```
 
 ```{r}
- %>%  <- data %>% 
+ df.taxonomy  <- data %>% 
   select(Year, Attention:`Extrinsic CL`, Perception:`Social Cognition`) %>%
   gather("Taxonomy", "publications", Attention:`Social Cognition`) %>% 
   mutate_all(replace_na,0) %>% 
@@ -252,12 +276,12 @@ data %>% select(Year, Attention:`Extrinsic CL`, Perception:`Social Cognition`) %
   filter(publications>0)
 
 # need to create a separated df to hold the percentage of publications within each year
-data.percentage <-  %>%  %>% 
+data.percentage <-  df.taxonomy  %>% 
   group_by(Year) %>% 
   count(Taxonomy) %>% 
   mutate(ratio = scales::percent(n/sum(n)))
 
- %>%  %>%  
+df.taxonomy %>% 
   ggplot(aes(x = as.factor(Year), fill = as.factor(Taxonomy))) + 
   geom_bar(position="fill") +  
   geom_text(data = data.percentage, aes(y = n,label = ratio), position = position_fill(vjust = 0.5), colour = "white", size = 1.3) + 
@@ -268,5 +292,31 @@ data.percentage <-  %>%  %>%
   theme(legend.key.size = unit(.2, "cm"), legend.key.width = unit(0.2,"cm"), legend.title = element_text(size = 8), legend.text = element_text(size = 6))
 
 ggsave("taxonomy_years.pdf", width = unit(9, "inch"), height = unit(6.5, "inch"))
+```
+
+```{r}
+df.concepts <- df.taxonomy %>% 
+  mutate(Concept = case_when(Taxonomy %in% c("Attention", "Selective attention", "Divided attention", "Sustained attention") ~ "Attention", 
+                             Taxonomy %in% c("Memory", "Working memory", "Short-term memory", "Long-term memory") ~ "Memory", 
+                             Taxonomy %in% c("Cognitive load", "Extrinsic CL", "Intrinsic CL") ~ "Cognitive load", 
+                             Taxonomy == "Perception" ~ "Perception", 
+                             Taxonomy %in% c("Problem solving", "Reasoning", "Decision making") ~ "Reasoning", 
+                             Taxonomy %in% c("Errors", "Cognitive biases") ~ "Errors", 
+                             Taxonomy %in% c("Knowledge", "Explicit knowledge", "Tacit knowledge",  "Techn. tacit knowl.", "Cogn. tacit knowl.") ~ "Knowledge", 
+                             Taxonomy %in% c("Cognitive control", "Executive functions", "Inhibition") ~ "Cognitive control", 
+                             Taxonomy=="Social Cognition" ~ "Social cognition"))
+
+df.years <- df.concepts %>% count(Year)
+
+ggplot() + 
+  geom_bar(data=df.concepts, aes(x=as.factor(Year), fill=Concept), position="fill") + 
+  geom_line(data=df.years, aes(x=as.factor(Year), y=n/max(n), group=1), size=0.8) + 
+  geom_point(data=df.years, aes(x=as.factor(Year), y=n/max(n), group=1)) + 
+  scale_y_continuous(labels=function(x)x*100, name="Publication %", sec.axis = sec_axis(name="Total publications", ~. * max(df.years$n), breaks=scales::pretty_breaks(n = 10))) + 
+  xlab("Year")  + 
+  theme(panel.background = element_blank(), axis.ticks.x = element_blank(), axis.title.x = element_text(margin = margin(-15,0,0,0, "pt")), axis.text.x = element_text(angle = 45, hjust = 1, size = 8, vjust = 2.4)) + 
+  scale_fill_npg() 
+
+ggsave("concepts_years.pdf", width = unit(13, "inch"), height = unit(6.5, "inch"))
 ```
 
