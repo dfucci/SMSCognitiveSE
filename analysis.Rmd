@@ -244,7 +244,7 @@ data %>% select(Year, Attention:`Extrinsic CL`, Perception:`Social Cognition`) %
 ```
 
 ```{r}
-df.taxonomy <- data %>% 
+ %>%  <- data %>% 
   select(Year, Attention:`Extrinsic CL`, Perception:`Social Cognition`) %>%
   gather("Taxonomy", "publications", Attention:`Social Cognition`) %>% 
   mutate_all(replace_na,0) %>% 
@@ -252,12 +252,12 @@ df.taxonomy <- data %>%
   filter(publications>0)
 
 # need to create a separated df to hold the percentage of publications within each year
-data.percentage <- df.taxonomy %>% 
+data.percentage <-  %>%  %>% 
   group_by(Year) %>% 
   count(Taxonomy) %>% 
   mutate(ratio = scales::percent(n/sum(n)))
 
-df.taxonomy %>%  
+ %>%  %>%  
   ggplot(aes(x = as.factor(Year), fill = as.factor(Taxonomy))) + 
   geom_bar(position="fill") +  
   geom_text(data = data.percentage, aes(y = n,label = ratio), position = position_fill(vjust = 0.5), colour = "white", size = 1.3) + 

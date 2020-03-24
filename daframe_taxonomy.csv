@@ -1,0 +1,367 @@
+Year,Taxonomy,publications,Class,color,ordered
+1979,Attention,1,Attention,#5F54BF,1
+2002,Attention,1,Attention,#5F54BF,2
+2004,Attention,1,Attention,#5F54BF,3
+2004,Attention,1,Attention,#5F54BF,4
+2007,Attention,1,Attention,#5F54BF,5
+2007,Attention,1,Attention,#5F54BF,6
+2008,Attention,1,Attention,#5F54BF,7
+2013,Attention,1,Attention,#5F54BF,8
+2014,Attention,1,Attention,#5F54BF,9
+2014,Attention,1,Attention,#5F54BF,10
+2015,Attention,1,Attention,#5F54BF,11
+2015,Attention,1,Attention,#5F54BF,12
+2015,Selective attention,1,Attention,#3F3880,13
+2012,Divided attention,1,Attention,#7F70FF,14
+2015,Divided attention,1,Attention,#7F70FF,15
+2015,Sustained attention,1,Attention,#201C40,16
+1973,Memory,1,Memory,#BF228E,17
+1977,Memory,1,Memory,#BF228E,18
+1979,Memory,1,Memory,#BF228E,19
+1979,Memory,1,Memory,#BF228E,20
+1981,Memory,1,Memory,#BF228E,21
+1981,Memory,1,Memory,#BF228E,22
+1981,Memory,1,Memory,#BF228E,23
+1986,Memory,1,Memory,#BF228E,24
+1988,Memory,1,Memory,#BF228E,25
+1994,Memory,1,Memory,#BF228E,26
+1995,Memory,1,Memory,#BF228E,27
+1999,Memory,1,Memory,#BF228E,28
+2004,Memory,1,Memory,#BF228E,29
+2004,Memory,1,Memory,#BF228E,30
+2006,Memory,1,Memory,#BF228E,31
+2006,Memory,1,Memory,#BF228E,32
+2011,Memory,1,Memory,#BF228E,33
+2012,Memory,1,Memory,#BF228E,34
+2012,Memory,1,Memory,#BF228E,35
+2013,Memory,1,Memory,#BF228E,36
+2015,Memory,1,Memory,#BF228E,37
+1979,Working memory,1,Memory,#80175E,38
+1979,Working memory,1,Memory,#80175E,39
+1989,Working memory,1,Memory,#80175E,40
+1996,Working memory,1,Memory,#80175E,41
+2001,Working memory,1,Memory,#80175E,42
+2006,Working memory,1,Memory,#80175E,43
+2010,Working memory,1,Memory,#80175E,44
+2012,Working memory,1,Memory,#80175E,45
+2012,Working memory,1,Memory,#80175E,46
+2013,Working memory,1,Memory,#80175E,47
+2014,Working memory,1,Memory,#80175E,48
+1973,Short-term memory,1,Memory,#FF2EBD,49
+1979,Short-term memory,1,Memory,#FF2EBD,50
+1979,Short-term memory,1,Memory,#FF2EBD,51
+1997,Short-term memory,1,Memory,#FF2EBD,52
+1998,Short-term memory,1,Memory,#FF2EBD,53
+2000,Short-term memory,1,Memory,#FF2EBD,54
+2002,Short-term memory,1,Memory,#FF2EBD,55
+1979,Long-term memory,1,Memory,#400B2F,56
+1979,Long-term memory,1,Memory,#400B2F,57
+1996,Long-term memory,1,Memory,#400B2F,58
+1996,Long-term memory,1,Memory,#400B2F,59
+1997,Long-term memory,1,Memory,#400B2F,60
+1997,Long-term memory,1,Memory,#400B2F,61
+1997,Long-term memory,1,Memory,#400B2F,62
+1998,Long-term memory,1,Memory,#400B2F,63
+2000,Long-term memory,1,Memory,#400B2F,64
+2002,Long-term memory,1,Memory,#400B2F,65
+2006,Long-term memory,1,Memory,#400B2F,66
+2012,Long-term memory,1,Memory,#400B2F,67
+1982,Cognitive load,1,Cognitive Load,#BF7D32,68
+1989,Cognitive load,1,Cognitive Load,#BF7D32,69
+1992,Cognitive load,1,Cognitive Load,#BF7D32,70
+1996,Cognitive load,1,Cognitive Load,#BF7D32,71
+1996,Cognitive load,1,Cognitive Load,#BF7D32,72
+1996,Cognitive load,1,Cognitive Load,#BF7D32,73
+1996,Cognitive load,1,Cognitive Load,#BF7D32,74
+1997,Cognitive load,1,Cognitive Load,#BF7D32,75
+1997,Cognitive load,1,Cognitive Load,#BF7D32,76
+1998,Cognitive load,1,Cognitive Load,#BF7D32,77
+1999,Cognitive load,1,Cognitive Load,#BF7D32,78
+2002,Cognitive load,1,Cognitive Load,#BF7D32,79
+2003,Cognitive load,1,Cognitive Load,#BF7D32,80
+2003,Cognitive load,1,Cognitive Load,#BF7D32,81
+2003,Cognitive load,1,Cognitive Load,#BF7D32,82
+2004,Cognitive load,1,Cognitive Load,#BF7D32,83
+2004,Cognitive load,1,Cognitive Load,#BF7D32,84
+2005,Cognitive load,1,Cognitive Load,#BF7D32,85
+2006,Cognitive load,1,Cognitive Load,#BF7D32,86
+2006,Cognitive load,1,Cognitive Load,#BF7D32,87
+2007,Cognitive load,1,Cognitive Load,#BF7D32,88
+2007,Cognitive load,1,Cognitive Load,#BF7D32,89
+2008,Cognitive load,1,Cognitive Load,#BF7D32,90
+2008,Cognitive load,1,Cognitive Load,#BF7D32,91
+2008,Cognitive load,1,Cognitive Load,#BF7D32,92
+2009,Cognitive load,1,Cognitive Load,#BF7D32,93
+2010,Cognitive load,1,Cognitive Load,#BF7D32,94
+2010,Cognitive load,1,Cognitive Load,#BF7D32,95
+2010,Cognitive load,1,Cognitive Load,#BF7D32,96
+2011,Cognitive load,1,Cognitive Load,#BF7D32,97
+2011,Cognitive load,1,Cognitive Load,#BF7D32,98
+2011,Cognitive load,1,Cognitive Load,#BF7D32,99
+2011,Cognitive load,1,Cognitive Load,#BF7D32,100
+2011,Cognitive load,1,Cognitive Load,#BF7D32,101
+2012,Cognitive load,1,Cognitive Load,#BF7D32,102
+2012,Cognitive load,1,Cognitive Load,#BF7D32,103
+2012,Cognitive load,1,Cognitive Load,#BF7D32,104
+2013,Cognitive load,1,Cognitive Load,#BF7D32,105
+2013,Cognitive load,1,Cognitive Load,#BF7D32,106
+2014,Cognitive load,1,Cognitive Load,#BF7D32,107
+2014,Cognitive load,1,Cognitive Load,#BF7D32,108
+2014,Cognitive load,1,Cognitive Load,#BF7D32,109
+2015,Cognitive load,1,Cognitive Load,#BF7D32,110
+2015,Cognitive load,1,Cognitive Load,#BF7D32,111
+2016,Cognitive load,1,Cognitive Load,#BF7D32,112
+2016,Cognitive load,1,Cognitive Load,#BF7D32,113
+2016,Cognitive load,1,Cognitive Load,#BF7D32,114
+2016,Cognitive load,1,Cognitive Load,#BF7D32,115
+2010,Intrinsic CL,1,Cognitive Load,#805321,116
+2012,Intrinsic CL,1,Cognitive Load,#805321,117
+1997,Extrinsic CL,1,Cognitive Load,#FFA742,118
+2010,Extrinsic CL,1,Cognitive Load,#FFA742,119
+1979,Perception,1,Perception,#FBFF34,120
+1984,Perception,1,Perception,#FBFF34,121
+1989,Perception,1,Perception,#FBFF34,122
+1996,Perception,1,Perception,#FBFF34,123
+2004,Perception,1,Perception,#FBFF34,124
+2006,Perception,1,Perception,#FBFF34,125
+2006,Perception,1,Perception,#FBFF34,126
+2006,Perception,1,Perception,#FBFF34,127
+2008,Perception,1,Perception,#FBFF34,128
+2009,Perception,1,Perception,#FBFF34,129
+2010,Perception,1,Perception,#FBFF34,130
+2013,Perception,1,Perception,#FBFF34,131
+2015,Perception,1,Perception,#FBFF34,132
+1977,Problem solving,1,Reasoning,#80270B,133
+1979,Problem solving,1,Reasoning,#80270B,134
+1979,Problem solving,1,Reasoning,#80270B,135
+1979,Problem solving,1,Reasoning,#80270B,136
+1980,Problem solving,1,Reasoning,#80270B,137
+1981,Problem solving,1,Reasoning,#80270B,138
+1984,Problem solving,1,Reasoning,#80270B,139
+1985,Problem solving,1,Reasoning,#80270B,140
+1987,Problem solving,1,Reasoning,#80270B,141
+1988,Problem solving,1,Reasoning,#80270B,142
+1990,Problem solving,1,Reasoning,#80270B,143
+1991,Problem solving,1,Reasoning,#80270B,144
+1992,Problem solving,1,Reasoning,#80270B,145
+1994,Problem solving,1,Reasoning,#80270B,146
+1994,Problem solving,1,Reasoning,#80270B,147
+1994,Problem solving,1,Reasoning,#80270B,148
+1995,Problem solving,1,Reasoning,#80270B,149
+1996,Problem solving,1,Reasoning,#80270B,150
+1996,Problem solving,1,Reasoning,#80270B,151
+1996,Problem solving,1,Reasoning,#80270B,152
+1997,Problem solving,1,Reasoning,#80270B,153
+1997,Problem solving,1,Reasoning,#80270B,154
+1997,Problem solving,1,Reasoning,#80270B,155
+1998,Problem solving,1,Reasoning,#80270B,156
+1999,Problem solving,1,Reasoning,#80270B,157
+1999,Problem solving,1,Reasoning,#80270B,158
+1999,Problem solving,1,Reasoning,#80270B,159
+2000,Problem solving,1,Reasoning,#80270B,160
+2002,Problem solving,1,Reasoning,#80270B,161
+2003,Problem solving,1,Reasoning,#80270B,162
+2003,Problem solving,1,Reasoning,#80270B,163
+2006,Problem solving,1,Reasoning,#80270B,164
+2006,Problem solving,1,Reasoning,#80270B,165
+2006,Problem solving,1,Reasoning,#80270B,166
+2006,Problem solving,1,Reasoning,#80270B,167
+2007,Problem solving,1,Reasoning,#80270B,168
+2009,Problem solving,1,Reasoning,#80270B,169
+2009,Problem solving,1,Reasoning,#80270B,170
+2010,Problem solving,1,Reasoning,#80270B,171
+2011,Problem solving,1,Reasoning,#80270B,172
+2012,Problem solving,1,Reasoning,#80270B,173
+2013,Problem solving,1,Reasoning,#80270B,174
+2013,Problem solving,1,Reasoning,#80270B,175
+2013,Problem solving,1,Reasoning,#80270B,176
+2015,Problem solving,1,Reasoning,#80270B,177
+1979,Reasoning,1,Reasoning,#BF3A11,178
+1980,Reasoning,1,Reasoning,#BF3A11,179
+1984,Reasoning,1,Reasoning,#BF3A11,180
+1989,Reasoning,1,Reasoning,#BF3A11,181
+2001,Reasoning,1,Reasoning,#BF3A11,182
+2001,Reasoning,1,Reasoning,#BF3A11,183
+2006,Reasoning,1,Reasoning,#BF3A11,184
+2006,Reasoning,1,Reasoning,#BF3A11,185
+2007,Reasoning,1,Reasoning,#BF3A11,186
+2009,Reasoning,1,Reasoning,#BF3A11,187
+1979,Decision making,1,Reasoning,#FF4C18,188
+1980,Decision making,1,Reasoning,#FF4C18,189
+1982,Decision making,1,Reasoning,#FF4C18,190
+2006,Decision making,1,Reasoning,#FF4C18,191
+2007,Decision making,1,Reasoning,#FF4C18,192
+2009,Decision making,1,Reasoning,#FF4C18,193
+2010,Decision making,1,Reasoning,#FF4C18,194
+2013,Decision making,1,Reasoning,#FF4C18,195
+2014,Decision making,1,Reasoning,#FF4C18,196
+2016,Decision making,1,Reasoning,#FF4C18,197
+2016,Decision making,1,Reasoning,#FF4C18,198
+1979,Errors,1,Errors,#34BEC2,199
+2004,Errors,1,Errors,#34BEC2,200
+2009,Errors,1,Errors,#34BEC2,201
+2013,Errors,1,Errors,#34BEC2,202
+2016,Errors,1,Errors,#34BEC2,203
+1979,Cognitive biases,1,Errors,#21777A,204
+1982,Cognitive biases,1,Errors,#21777A,205
+1994,Cognitive biases,1,Errors,#21777A,206
+1996,Cognitive biases,1,Errors,#21777A,207
+2001,Cognitive biases,1,Errors,#21777A,208
+2002,Cognitive biases,1,Errors,#21777A,209
+2005,Cognitive biases,1,Errors,#21777A,210
+2005,Cognitive biases,1,Errors,#21777A,211
+2006,Cognitive biases,1,Errors,#21777A,212
+2007,Cognitive biases,1,Errors,#21777A,213
+2008,Cognitive biases,1,Errors,#21777A,214
+2009,Cognitive biases,1,Errors,#21777A,215
+2010,Cognitive biases,1,Errors,#21777A,216
+2010,Cognitive biases,1,Errors,#21777A,217
+2010,Cognitive biases,1,Errors,#21777A,218
+2010,Cognitive biases,1,Errors,#21777A,219
+2011,Cognitive biases,1,Errors,#21777A,220
+2011,Cognitive biases,1,Errors,#21777A,221
+2011,Cognitive biases,1,Errors,#21777A,222
+2012,Cognitive biases,1,Errors,#21777A,223
+2012,Cognitive biases,1,Errors,#21777A,224
+2013,Cognitive biases,1,Errors,#21777A,225
+2013,Cognitive biases,1,Errors,#21777A,226
+2013,Cognitive biases,1,Errors,#21777A,227
+2013,Cognitive biases,1,Errors,#21777A,228
+2014,Cognitive biases,1,Errors,#21777A,229
+2015,Cognitive biases,1,Errors,#21777A,230
+2015,Cognitive biases,1,Errors,#21777A,231
+2016,Cognitive biases,1,Errors,#21777A,232
+2016,Cognitive biases,1,Errors,#21777A,233
+2016,Cognitive biases,1,Errors,#21777A,234
+1977,Knowledge,1,Knowledge,#2BC21D,235
+1979,Knowledge,1,Knowledge,#2BC21D,236
+1980,Knowledge,1,Knowledge,#2BC21D,237
+1981,Knowledge,1,Knowledge,#2BC21D,238
+1981,Knowledge,1,Knowledge,#2BC21D,239
+1981,Knowledge,1,Knowledge,#2BC21D,240
+1981,Knowledge,1,Knowledge,#2BC21D,241
+1983,Knowledge,1,Knowledge,#2BC21D,242
+1984,Knowledge,1,Knowledge,#2BC21D,243
+1984,Knowledge,1,Knowledge,#2BC21D,244
+1986,Knowledge,1,Knowledge,#2BC21D,245
+1987,Knowledge,1,Knowledge,#2BC21D,246
+1988,Knowledge,1,Knowledge,#2BC21D,247
+1991,Knowledge,1,Knowledge,#2BC21D,248
+1991,Knowledge,1,Knowledge,#2BC21D,249
+1993,Knowledge,1,Knowledge,#2BC21D,250
+1994,Knowledge,1,Knowledge,#2BC21D,251
+1994,Knowledge,1,Knowledge,#2BC21D,252
+1994,Knowledge,1,Knowledge,#2BC21D,253
+1995,Knowledge,1,Knowledge,#2BC21D,254
+1996,Knowledge,1,Knowledge,#2BC21D,255
+1996,Knowledge,1,Knowledge,#2BC21D,256
+1996,Knowledge,1,Knowledge,#2BC21D,257
+1997,Knowledge,1,Knowledge,#2BC21D,258
+1997,Knowledge,1,Knowledge,#2BC21D,259
+1997,Knowledge,1,Knowledge,#2BC21D,260
+1997,Knowledge,1,Knowledge,#2BC21D,261
+1998,Knowledge,1,Knowledge,#2BC21D,262
+1999,Knowledge,1,Knowledge,#2BC21D,263
+1999,Knowledge,1,Knowledge,#2BC21D,264
+1999,Knowledge,1,Knowledge,#2BC21D,265
+1999,Knowledge,1,Knowledge,#2BC21D,266
+1999,Knowledge,1,Knowledge,#2BC21D,267
+2000,Knowledge,1,Knowledge,#2BC21D,268
+2001,Knowledge,1,Knowledge,#2BC21D,269
+2001,Knowledge,1,Knowledge,#2BC21D,270
+2002,Knowledge,1,Knowledge,#2BC21D,271
+2002,Knowledge,1,Knowledge,#2BC21D,272
+2003,Knowledge,1,Knowledge,#2BC21D,273
+2004,Knowledge,1,Knowledge,#2BC21D,274
+2005,Knowledge,1,Knowledge,#2BC21D,275
+2005,Knowledge,1,Knowledge,#2BC21D,276
+2005,Knowledge,1,Knowledge,#2BC21D,277
+2005,Knowledge,1,Knowledge,#2BC21D,278
+2006,Knowledge,1,Knowledge,#2BC21D,279
+2006,Knowledge,1,Knowledge,#2BC21D,280
+2006,Knowledge,1,Knowledge,#2BC21D,281
+2006,Knowledge,1,Knowledge,#2BC21D,282
+2006,Knowledge,1,Knowledge,#2BC21D,283
+2007,Knowledge,1,Knowledge,#2BC21D,284
+2007,Knowledge,1,Knowledge,#2BC21D,285
+2007,Knowledge,1,Knowledge,#2BC21D,286
+2007,Knowledge,1,Knowledge,#2BC21D,287
+2007,Knowledge,1,Knowledge,#2BC21D,288
+2008,Knowledge,1,Knowledge,#2BC21D,289
+2008,Knowledge,1,Knowledge,#2BC21D,290
+2009,Knowledge,1,Knowledge,#2BC21D,291
+2009,Knowledge,1,Knowledge,#2BC21D,292
+2009,Knowledge,1,Knowledge,#2BC21D,293
+2010,Knowledge,1,Knowledge,#2BC21D,294
+2010,Knowledge,1,Knowledge,#2BC21D,295
+2010,Knowledge,1,Knowledge,#2BC21D,296
+2010,Knowledge,1,Knowledge,#2BC21D,297
+2010,Knowledge,1,Knowledge,#2BC21D,298
+2010,Knowledge,1,Knowledge,#2BC21D,299
+2011,Knowledge,1,Knowledge,#2BC21D,300
+2011,Knowledge,1,Knowledge,#2BC21D,301
+2011,Knowledge,1,Knowledge,#2BC21D,302
+2011,Knowledge,1,Knowledge,#2BC21D,303
+2011,Knowledge,1,Knowledge,#2BC21D,304
+2012,Knowledge,1,Knowledge,#2BC21D,305
+2012,Knowledge,1,Knowledge,#2BC21D,306
+2012,Knowledge,1,Knowledge,#2BC21D,307
+2013,Knowledge,1,Knowledge,#2BC21D,308
+2013,Knowledge,1,Knowledge,#2BC21D,309
+2013,Knowledge,1,Knowledge,#2BC21D,310
+2013,Knowledge,1,Knowledge,#2BC21D,311
+2014,Knowledge,1,Knowledge,#2BC21D,312
+2014,Knowledge,1,Knowledge,#2BC21D,313
+2014,Knowledge,1,Knowledge,#2BC21D,314
+2015,Knowledge,1,Knowledge,#2BC21D,315
+1979,Explicit knowledge,1,Knowledge,#1B7A12,316
+1983,Explicit knowledge,1,Knowledge,#1B7A12,317
+1984,Explicit knowledge,1,Knowledge,#1B7A12,318
+1993,Explicit knowledge,1,Knowledge,#1B7A12,319
+1994,Explicit knowledge,1,Knowledge,#1B7A12,320
+2002,Explicit knowledge,1,Knowledge,#1B7A12,321
+2002,Explicit knowledge,1,Knowledge,#1B7A12,322
+2005,Explicit knowledge,1,Knowledge,#1B7A12,323
+2006,Explicit knowledge,1,Knowledge,#1B7A12,324
+2006,Explicit knowledge,1,Knowledge,#1B7A12,325
+2006,Explicit knowledge,1,Knowledge,#1B7A12,326
+2007,Explicit knowledge,1,Knowledge,#1B7A12,327
+2008,Explicit knowledge,1,Knowledge,#1B7A12,328
+2011,Explicit knowledge,1,Knowledge,#1B7A12,329
+2012,Explicit knowledge,1,Knowledge,#1B7A12,330
+1998,Tacit knowledge,1,Knowledge,#37FA25,331
+2004,Tacit knowledge,1,Knowledge,#37FA25,332
+2005,Tacit knowledge,1,Knowledge,#37FA25,333
+2006,Tacit knowledge,1,Knowledge,#37FA25,334
+2006,Tacit knowledge,1,Knowledge,#37FA25,335
+2007,Tacit knowledge,1,Knowledge,#37FA25,336
+2011,Tacit knowledge,1,Knowledge,#37FA25,337
+1979,Techn. tacit knowl.,1,Knowledge,#0E3D09,338
+1981,Techn. tacit knowl.,1,Knowledge,#0E3D09,339
+1983,Techn. tacit knowl.,1,Knowledge,#0E3D09,340
+1984,Techn. tacit knowl.,1,Knowledge,#0E3D09,341
+1991,Techn. tacit knowl.,1,Knowledge,#0E3D09,342
+1992,Techn. tacit knowl.,1,Knowledge,#0E3D09,343
+1993,Techn. tacit knowl.,1,Knowledge,#0E3D09,344
+1994,Techn. tacit knowl.,1,Knowledge,#0E3D09,345
+1999,Techn. tacit knowl.,1,Knowledge,#0E3D09,346
+2001,Techn. tacit knowl.,1,Knowledge,#0E3D09,347
+2001,Techn. tacit knowl.,1,Knowledge,#0E3D09,348
+2002,Techn. tacit knowl.,1,Knowledge,#0E3D09,349
+2004,Techn. tacit knowl.,1,Knowledge,#0E3D09,350
+2005,Techn. tacit knowl.,1,Knowledge,#0E3D09,351
+2005,Techn. tacit knowl.,1,Knowledge,#0E3D09,352
+2006,Techn. tacit knowl.,1,Knowledge,#0E3D09,353
+2006,Techn. tacit knowl.,1,Knowledge,#0E3D09,354
+2006,Techn. tacit knowl.,1,Knowledge,#0E3D09,355
+2007,Techn. tacit knowl.,1,Knowledge,#0E3D09,356
+2007,Techn. tacit knowl.,1,Knowledge,#0E3D09,357
+2008,Techn. tacit knowl.,1,Knowledge,#0E3D09,358
+2009,Techn. tacit knowl.,1,Knowledge,#0E3D09,359
+2010,Techn. tacit knowl.,1,Knowledge,#0E3D09,360
+2015,Techn. tacit knowl.,1,Knowledge,#0E3D09,361
+2012,Cogn. tacit knowl.,1,Knowledge,#32E022,362
+1984,Executive functions,1,Cognitive action,#777A74,363
+2008,Social Cognition,1,Social cognition,#FAF3D2,364
+2012,Social Cognition,1,Social cognition,#FAF3D2,365
+2015,Social Cognition,1,Social cognition,#FAF3D2,366
