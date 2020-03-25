@@ -21,7 +21,7 @@ library(scales)
 ```
 ```{r}
 data <- read_excel("data.xlsx", skip = 1)
-data <- data %>% filter(is.na(Exclude)) %>% select(-Exclude)
+data <- data %>% filter(is.na(Exclude)) 
 ```
 
 # Visualizing number of publications over time
@@ -312,7 +312,7 @@ ggplot() +
   geom_bar(data=df.concepts, aes(x=as.factor(Year), fill=Concept), position="fill") + 
   geom_line(data=df.years, aes(x=as.factor(Year), y=n/max(n), group=1), size=0.8) + 
   geom_point(data=df.years, aes(x=as.factor(Year), y=n/max(n), group=1)) + 
-  scale_y_continuous(labels=function(x)x*100, name="Publication %", sec.axis = sec_axis(name="Total publications", ~. * max(df.years$n), breaks=scales::pretty_breaks(n = 10))) + 
+  scale_y_continuous( name="Publication %", sec.axis = sec_axis(name="Total publications", ~. * max(df.years$n), breaks=scales::pretty_breaks(n = 10))) + 
   xlab("Year")  + 
   theme(panel.background = element_blank(), axis.ticks.x = element_blank(), axis.title.x = element_text(margin = margin(-15,0,0,0, "pt")), axis.text.x = element_text(angle = 45, hjust = 1, size = 8, vjust = 2.4)) + 
   scale_fill_npg() 
