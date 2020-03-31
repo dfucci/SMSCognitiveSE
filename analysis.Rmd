@@ -231,8 +231,8 @@ data %>%
   geom_tile() + scale_fill_continuous(low="#fff9f7", high="red") +
   xlab("SWEBOK area") + ylab("Concept") + guides(fill=guide_legend(title="")) + 
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
-
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8)) +
+  scale_x_discrete(labels = c("Requirements", "Design", "Construction", "Testing", "Maintainance", "Config. Mgmt.", "SE Mgmt.", "SE Processes", "SE Models&Methods", "Software Quality", "SE Prof. Practice", "SE Economics"))
 
 ggsave("taxomony_swebok_cooccurences.pdf")
 ```
@@ -264,36 +264,6 @@ data %>%
   annotate(geom="text", x=8, y=0.73, label="Quantitative", size=3, alpha=0.4)+ annotate(geom="text", x=3, y=0.73, label="Qualitative", size=3, alpha=0.4) +
   scale_fill_continuous(low="#fff9f7", high="darkgreen") +
   theme_minimal() + 
-  theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
-
-ggsave("taxonomy_method_cooccurences.pdf")
-```
-```{r}
-data %>% 
-  select(Attention:`Extrinsic CL`, Perception:`Social Cognition`, `Qualit. measures`:`Behavioral meas.`) %>% 
-  mutate_all(replace_na,0) %>% 
-  gather(Taxonomy, value, Attention:`Social Cognition`) %>% 
-  mutate(Concept = case_when(Taxonomy %in% c("Attention", "Selective attention", "Divided attention", "Sustained attention") ~ "Attention", 
-                             Taxonomy %in% c("Memory", "Working memory", "Short-term memory", "Long-term memory") ~ "Memory", 
-                             Taxonomy %in% c("Cognitive load", "Extrinsic CL", "Intrinsic CL") ~ "Cognitive load", 
-                             Taxonomy == "Perception" ~ "Perception", 
-                             Taxonomy %in% c("Problem solving", "Reasoning", "Decision making") ~ "Reasoning", 
-                             Taxonomy %in% c("Errors", "Cognitive biases") ~ "Errors", 
-                             Taxonomy %in% c("Knowledge", "Explicit knowledge", "Tacit knowledge",  "Techn. tacit knowl.", "Cogn. tacit knowl.") ~ "Knowledge", 
-                             Taxonomy %in% c("Cognitive control", "Executive functions", "Inhibition") ~ "Cognitive control", 
-                             Taxonomy=="Social Cognition" ~ "Social cognition")) %>% 
-  gather(Context, value2, Academia:Industry) %>% 
-  mutate(value2 = as.integer(value2)) %>% 
-  gather(Measure, value3, `Qualit. measures`:`Behavioral meas.`) %>% 
-  count(Concept, Context, value, value2) %>%
-  mutate(freq=ifelse(value==1 & value2==1, n, 0)) %>% 
-  ggplot(aes(Context,  )) + 
-  geom_bar(position = "dodge")+
-  geom_tile() +
-  geom_vline(xintercept = 5.5, size=0.5,  color="darkgrey") +
-  xlab("Assessment procedure") + ylab("Concept") + guides(fill=guide_legend(title="")) +
-  scale_fill_continuous(low="#fff9f7", high="darkgreen") +
-  theme_minimal() +
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
 
 ggsave("taxonomy_method_cooccurences.pdf")
@@ -334,7 +304,7 @@ ggsave("taxonomy_years.pdf", width = unit(9, "inch"), height = unit(6.5, "inch")
 df.concepts <- df.taxonomy %>% 
   mutate(Concept = case_when(Taxonomy %in% c("Attention", "Selective attention", "Divided attention", "Sustained attention") ~ "Attention", 
                              Taxonomy %in% c("Memory", "Working memory", "Short-term memory", "Long-term memory") ~ "Memory", 
-                             Taxonomy %in% c("Cognitive load", "Extrinsic CL", "Intrinsic CL") ~ "Cognitive load", 
+                               Taxonomy %in% c("Cognitive load", "Extrinsic CL", "Intrinsic CL") ~ "Cognitive load", 
                              Taxonomy == "Perception" ~ "Perception", 
                              Taxonomy %in% c("Problem solving", "Reasoning", "Decision making") ~ "Reasoning", 
                              Taxonomy %in% c("Errors", "Cognitive biases") ~ "Errors", 
@@ -344,6 +314,8 @@ df.concepts <- df.taxonomy %>%
 
 df.years <- data %>% filter(!(Year %in% c("1974", "1975", "1976", "1978"))) %>% count(Year)
 
+tol9qualitative=c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#CC6677", "#882255", "#AA4499")
+NPG_modified=c("#F5E144", "#4DBBD5FF", "#00A087FF", "#3C5488FF", "#F39B7FFF", "#8491B4FF", "#91D1C2FF", "#DC0000FF", "#7E6148FF")
 ggplot() + 
   geom_bar(data=df.concepts, aes(x=as.factor(Year), fill=Concept), position="fill") + 
   geom_line(data=df.years, aes(x=as.factor(Year), y=n/max(n), group=1), size=0.8) + 
@@ -351,7 +323,7 @@ ggplot() +
   scale_y_continuous(labels = function(x)x*100, name="Publication %", sec.axis = sec_axis(name="Total publications", ~. * max(df.years$n), breaks=scales::breaks_extended(10))) + 
   xlab("Year")  + 
   theme(panel.background = element_blank(), axis.ticks.x = element_blank(), axis.title.x = element_text(margin = margin(-15,0,0,0, "pt")), axis.text.x = element_text(angle = 45, hjust = 1, size = 8, vjust = 2.4)) + 
-  scale_fill_npg() 
+  scale_fill_manual(values = NPG_modified) 
 
 ggsave("concepts_years.pdf", width = unit(13, "inch"), height = unit(6.5, "inch"))
 ```
