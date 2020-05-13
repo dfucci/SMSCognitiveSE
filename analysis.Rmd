@@ -4,6 +4,7 @@ output:
   html_document:
     df_print: tibble
     fig_caption: yes
+    code_folding: hide
   pdf_document: default
 editor_options:
   chunk_output_type: inline
@@ -21,7 +22,7 @@ library(scales)
 library(ggsci)
 ```
 ```{r}
-data <- read_excel("data_IEEE.xlsx", skip = 1)
+data <- read_excel("data/data_IEEE.xlsx", skip = 1)
 data <- data %>% filter(is.na(Exclude)) 
 # Years without any publication (for easy slicing)
 years_no_publications <- c("1974", "1975", "1976", "1978")
@@ -59,7 +60,7 @@ ggplot(data, aes(x=as.factor(Year))) +
   geom_text(stat='count', aes(label=..count..), vjust=2, color="white", size = 2.5) + 
   theme_bw() + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
-ggsave("yearly_distribution.pdf")
+ggsave("PDFs/yearly_distribution.pdf")
 ```
 
 
@@ -86,7 +87,7 @@ ggplot(aes(x=Type)) +
   ylab("Number of publications") + 
   geom_text(stat='count', aes(label=..count..), vjust=3, color="white", size = 4) +
   theme_bw()
-ggsave("academia_industry_distribution.pdf")
+ggsave("PDFs/academia_industry_distribution.pdf")
 ```
 
 # Number of publications categorized according to SWEBoK Areas. 
@@ -107,7 +108,7 @@ data %>%
   ylab("Number of publications") +
   theme_bw()
 
-ggsave("swebok_distribution.pdf")
+ggsave("PDFs/swebok_distribution.pdf")
 ```
 
 # Co-occurrences of SWEBoK Areas
@@ -148,7 +149,7 @@ p + geom_point(aes(x = fct_infreq(SWEBOK), y = fct_rev(Taxonomy), size=count), s
 geom_text(aes(x = fct_infreq(SWEBOK), y = fct_rev(Taxonomy), label=label), size=2) +
 theme(axis.text.x = element_text(angle = 45, hjust = 1.1, size=9,colour="black"), axis.text.y = element_text(size=8,colour="black"), axis.title.x = element_text(size=10), axis.title.y = element_text(size=10,colour = "black",vjust=0.12), panel.grid.major = element_line(linetype = "dashed", size=0.1, color="black"))+
   labs(x="SWEBOK Area",y = "Taxonomy Area") + theme_bw()
-ggsave("swebok_taxonomy_bubble.pdf")
+ggsave("PDFs/swebok_taxonomy_bubble.pdf")
 ```
 ```{r}
 # Preparing the dataset for analysing the research methods
@@ -176,7 +177,7 @@ data %>%
   ggplot(aes(x=as.factor(Year), fill=SWEBOK, y=total)) +  geom_bar(stat="sum") +
   xlab("Year") + ylab("Publications") + scale_fill_discrete(name = "SWEBOK Areas") + guides(size = F) + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 6))
 
-ggsave("years_swebok.pdf")
+ggsave("PDFs/years_swebok.pdf")
 ```
 
 ### Evolution of research methods over the years
@@ -191,7 +192,7 @@ data %>%  ggplot(aes(x=as.factor(Year), fill=research_method)) + geom_bar() +
   xlab("Year") + ylab("Publications") +   
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 5))
 
-ggsave("years_researchmethods.pdf")
+ggsave("PDFs/years_researchmethods.pdf")
 ```
 
 
@@ -208,7 +209,7 @@ data.swebok.researchmethod %>%
   ggplot(aes(x=reorder(SWEBOK, Publications, function(x){sum(x)}), y=Publications, fill=research_method)) + geom_bar(stat = "identity") + 
   coord_flip() + xlab("SWEBOK areas") + scale_fill_discrete(name = "Research method")
 
-ggsave("SWBOK_researchmethods.pdf")
+ggsave("PDFs/SWBOK_researchmethods.pdf")
 ```
 # Distribution of publications 
 ```{r}
@@ -228,7 +229,7 @@ data %>%
   geom_point(aes(size=Amount), alpha=0.5) + 
   theme(legend.position = "") + theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
 
-ggsave("taxonomy_methods.pdf")
+ggsave("PDFs/taxonomy_methods.pdf")
 ```
 
 ```{r}
@@ -251,7 +252,7 @@ data %>%
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8)) +
   scale_x_discrete(labels = swebok_areas_labels_long)
 
-ggsave("taxomony_swebok_cooccurences.pdf")
+ggsave("PDFs/taxomony_swebok_cooccurences.pdf")
 ```
 
 
@@ -275,7 +276,7 @@ data %>%
   theme_minimal() + 
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
 
-ggsave("taxonomy_method_cooccurences.pdf")
+ggsave("PDFs/taxonomy_method_cooccurences.pdf")
 ```
 
 ```{r}
@@ -315,7 +316,7 @@ df.taxonomy %>%
   theme_minimal() + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8)) + 
   theme(legend.key.size = unit(.2, "cm"), legend.key.width = unit(0.2,"cm"), legend.title = element_text(size = 8), legend.text = element_text(size = 6))
 
-ggsave("taxonomy_years.pdf", width = unit(9, "inch"), height = unit(6.5, "inch"))
+ggsave("PDFs/taxonomy_years.pdf", width = unit(9, "inch"), height = unit(6.5, "inch"))
 ```
 
 ```{r}
@@ -332,5 +333,5 @@ ggplot() +
   theme(panel.background = element_blank(), axis.ticks.x = element_blank(), axis.title.x = element_text(margin = margin(-15,0,0,0, "pt")), axis.text.x = element_text(angle = 45, hjust = 1, size = 8, vjust = 2.4)) + 
   scale_fill_manual(values = NPG_modified) 
 
-ggsave("concepts_years.pdf", width = unit(13, "inch"), height = unit(6.5, "inch"))
+ggsave("PDFs/concepts_years.pdf", width = unit(13, "inch"), height = unit(6.5, "inch"))
 ```
