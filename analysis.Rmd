@@ -31,7 +31,7 @@ swebok_areas_labels = c("SR", "SD", "SC", "ST", "SM", "SCM", "SEM", "SEP", "SEMM
 swebok_areas_labels_no_foundation = c("SR", "SD", "SC", "ST", "SM", "SCM", "SEM", "SEP", "SEMM", "SQ", "SEPP", "SEE")
 swebok_areas_labels_long = c("Requirements", "Design", "Construction", "Testing", "Maintainance", "Config. Mgmt.", "SE Mgmt.", "SE Processes", "SE Models&Methods", "Software Quality", "SE Prof. Practice", "SE Economics")
 
-cognitive_concepts_labels <- c( "Attention", "Selective attention", "Divided attention", "Sustained attention", "Memory", "Working memory", "Short-term memory", "Long-term memory", "Cognitive load", "Intrinsic CL", "Extrinsic CL", "Perception", "Problem solving", "Reasoning", "Decision making", "Cognitive biases", "Knowledge", "Explicit knowledge", "Tacit knowledge", "Techn. tacit knowl.", "Cogn. tacit knowl.", "Cognitive control", "Social Cognition")
+cognitive_concepts_labels <- c( "Attention", "Selective attention", "Divided attention", "Sustained attention", "Memory", "Working memory", "Short-term memory", "Long-term memory", "Cognitive load", "Intrinsic CL", "Extrinsic CL", "Perception", "Problem solving", "Reasoning", "Decision making", "Cognitive biases", "Knowledge", "Explicit knowledge", "Tacit knowledge", "Techn. tacit knowl.", "Cogn. tacit knowl.", "Cognitive control")
 
 measures_labels <- c("Qualit. measures", "Fieldwork", "Interview", "Task-based", "Open observation", "Quantit. measures", "Task performance", "Physiological meas.", "Subjective ratings", "Behavioral meas.")
 
@@ -47,8 +47,7 @@ add_high_level_concepts_to_data = function(data) {data %>%  mutate(Concept = cas
                                                                                 Taxonomy %in% c("Problem solving", "Reasoning", "Decision making") ~ "Reasoning", 
                                                                                 Taxonomy %in% c("Cognitive biases") ~ "Cognitive biases", 
                                                                                 Taxonomy %in% c("Knowledge", "Explicit knowledge", "Tacit knowledge",  "Techn. tacit knowl.", "Cogn. tacit knowl.") ~ "Knowledge", 
-                                                                                Taxonomy %in% c("Cognitive control") ~ "Cognitive control", 
-                                                                                Taxonomy=="Social Cognition" ~ "Social cognition")) }
+                                                                                Taxonomy %in% c("Cognitive control") ~ "Cognitive control")) }
 ```
 
 # Visualizing number of publications over time
