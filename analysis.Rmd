@@ -41,14 +41,18 @@ tol9qualitative=c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC7
 NPG_modified=c("#F5E144", "#4DBBD5FF", "#00A087FF", "#3C5488FF", "#F39B7FFF", "#8491B4FF", "#91D1C2FF", "#DC0000FF", "#7E6148FF")
 
 # Necessary for groupying by high-level category
-add_high_level_concepts_to_data = function(data) {data %>%  mutate(Concept = case_when(Taxonomy %in% c("Attention", "Selective attention", "Divided attention", "Sustained attention") ~ "Attention", 
-                                                                                Taxonomy %in% c("Memory", "Working memory", "Short-term memory", "Long-term memory") ~ "Memory", 
-                                                                                Taxonomy %in% c("Cognitive load", "Extrinsic CL", "Intrinsic CL") ~ "Cognitive load", 
-                                                                                Taxonomy == "Perception" ~ "Perception", 
-                                                                                Taxonomy %in% c("Problem solving", "Reasoning", "Decision making") ~ "Reasoning", 
-                                                                                Taxonomy %in% c("Cognitive biases") ~ "Cognitive biases", 
-                                                                                Taxonomy %in% c("Knowledge", "Explicit knowledge", "Tacit knowledge",  "Techn. tacit knowl.", "Cogn. tacit knowl.") ~ "Knowledge", 
-                                                                                Taxonomy %in% c("Cognitive control") ~ "Cognitive control")) }
+add_high_level_concepts_to_data <- function(data) {
+  data %>%  
+    mutate(Concept = case_when(
+    Taxonomy %in% c("Attention", "Selective attention", "Divided attention", "Sustained attention") ~ "Attention", 
+    Taxonomy %in% c("Memory", "Working memory", "Short-term memory", "Long-term memory") ~ "Memory", 
+    Taxonomy %in% c("Cognitive load", "Extrinsic CL", "Intrinsic CL") ~ "Cognitive load", 
+    Taxonomy == "Perception" ~ "Perception", 
+    Taxonomy %in% c("Problem solving", "Reasoning", "Decision making") ~ "Reasoning", 
+    Taxonomy %in% c("Cognitive biases") ~ "Cognitive biases", 
+    Taxonomy %in% c("Knowledge", "Explicit knowledge", "Tacit knowledge",  "Techn. tacit knowl.", "Cogn. tacit knowl.") ~ "Knowledge", 
+    Taxonomy %in% c("Cognitive control") ~ "Cognitive control")) 
+  }
 ```
 
 # Visualizing number of publications over time
@@ -185,10 +189,11 @@ ggsave("PDFs/years_swebok.pdf")
 data <-  data %>% complete(Year=seq(1973,2016)) 
 
 data <-  data %>% 
-  mutate(research_method = if_else(Both==1, "Mixed", if_else(Qualitative==1, "Qualitative", "Quantitative"))) 
+  mutate(research_method = if_else(Both==1, "Mixed", if_else(Qualitative==1, "Qualitative", "Quantitative")))  %>% 
+  filter(!is.na(research_method))
 
 data %>%  ggplot(aes(x=as.factor(Year), fill=research_method)) + geom_bar() + 
-  scale_fill_discrete(name="Research method", labels = c("Mixed", "Qualitative", "Quantitative", ""), na.value = "transparent") +
+  scale_fill_discrete(name="Research method", labels = c("Mixed", "Qualitative", "Quantitative", "")) +
   xlab("Year") + ylab("Publications") +   
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 5))
 
@@ -201,6 +206,7 @@ ggsave("PDFs/years_researchmethods.pdf")
 data.swebok.researchmethod <- data %>% 
   select(swebok_areas_labels, research_method) %>% 
   mutate_all(replace_na,0) %>% 
+  filter(research_method != 0) %>% 
   group_by(research_method) %>% 
   summarise_at(vars(swebok_areas_labels), sum) %>% 
   gather("SWEBOK", "Publications", swebok_areas_labels) 
@@ -209,7 +215,7 @@ data.swebok.researchmethod %>%
   ggplot(aes(x=reorder(SWEBOK, Publications, function(x){sum(x)}), y=Publications, fill=research_method)) + geom_bar(stat = "identity") + 
   coord_flip() + xlab("SWEBOK areas") + scale_fill_discrete(name = "Research method")
 
-ggsave("PDFs/SWBOK_researchmethods.pdf")
+ggsave("PDFs/SWEBOK_researchmethods.pdf")
 ```
 # Distribution of publications 
 ```{r}
@@ -227,7 +233,7 @@ data %>%
   tally(name = "Amount") %>% 
   ggplot(aes(x=Method, y=Taxonomy, fill=Amount)) + 
   geom_point(aes(size=Amount), alpha=0.5) + 
-  theme(legend.position = "") + theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
+  theme(legend.position = "", axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
 
 ggsave("PDFs/taxonomy_methods.pdf")
 ```
