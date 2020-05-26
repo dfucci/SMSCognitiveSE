@@ -321,6 +321,8 @@ data %>%
   tally(name = "Amount") %>% 
   ggplot(aes(x=Method, y=Taxonomy, fill=Amount)) + 
   geom_point(aes(size=Amount), alpha=0.5) + 
+  xlab("Cognitive Assessment Procedures") + 
+  ylab("Cognitive Concepts") +
   theme(legend.position = "", axis.text.x = element_text(angle = 30, hjust = 1, size = 8))
 
 ggsave("PDFs/taxonomy_methods.pdf")
@@ -341,7 +343,7 @@ data %>%
   ungroup() %>% 
   ggplot(aes(fct_relevel(SWEBOK, swebok_areas_labels_no_foundation), fct_rev(Concept), fill=total)) + 
   geom_tile() + scale_fill_continuous(low="#fff9f7", high="red") +
-  xlab("SWEBOK area") + ylab("Concept") + guides(fill=guide_legend(title="")) + 
+  xlab("SWEBOK areas") + ylab("Cognitive Concepts") + guides(fill=guide_legend(title="")) + 
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8)) +
   scale_x_discrete(labels = swebok_areas_labels_long)
@@ -363,7 +365,7 @@ data %>%
   ggplot(aes(fct_relevel(Method, measures_labels), fct_rev(Concept), fill=freq)) + 
   geom_tile() +
   geom_vline(xintercept = 5.5, size=0.5,  color="darkgrey") +
-  xlab("Assessment procedure") + ylab("Concept") + guides(fill=guide_legend(title="")) + 
+  xlab("Cognitive Assessment Procedures") + ylab("Cognitive Concepts") + guides(fill=guide_legend(title="")) + 
   scale_x_discrete(labels=c("Fieldwork", "Interview", "Task-based", "Open observation", "Others", "Task performance", "Physiological meas.", "Subjective ratings", "Behavioral meas.", "Others")) + # not using measure_lables here since we need a catch-all "Others" category
   annotate(geom="text", x=8, y=0.73, label="Quantitative", size=3, alpha=0.4)+ annotate(geom="text", x=3, y=0.73, label="Qualitative", size=3, alpha=0.4) +
   scale_fill_continuous(low="#fff9f7", high="darkgreen") +
