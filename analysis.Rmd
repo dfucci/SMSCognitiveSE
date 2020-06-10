@@ -22,7 +22,7 @@ library(scales)
 library(ggsci)
 ```
 ```{r}
-data <- read_excel("data/data_IEEE.xlsx", skip = 1)
+data <- read_excel("data/data_IEEE.xlsx", skip = 1, sheet = 1)
 data <- data %>% filter(is.na(Exclude)) 
 # Years without any publication (for easy slicing)
 years_no_publications <- c("1974",
@@ -431,3 +431,47 @@ ggplot() +
 
 ggsave("PDFs/concepts_years.pdf", width = unit(13, "inch"), height = unit(6.5, "inch"))
 ```
+```{r}
+data %>% 
+  filter(!is.na(publication_type)) %>% 
+  ggplot(aes(x=fct_rev(fct_infreq(publication_type)))) +
+  geom_bar(stat="count", width=.4) + 
+  scale_x_discrete("Publication outlets", labels=c("Magazines", "Books",  "Workshops", "Conferences", "Journals" )) +
+  scale_y_continuous("Number of publications", breaks = scales::breaks_extended(10)) +
+  coord_flip() +
+  theme_minimal() + 
+  theme(axis.text.y = element_text(angle = 90, hjust=.5, vjust=-0.3))
+
+ggsave("PDFs/outlets.pdf")
+
+```
+```{r}
+data %>% 
+  select(all_of(cognitive_concepts_labels), publication_type) %>% 
+  mutate_all(replace_na,0) %>% 
+  gather(Taxonomy, value2, cognitive_concepts_labels) %>% 
+  add_high_level_concepts_to_data() %>% 
+  filter(value2 > 0) %>% 
+  ggplot(aes(x=fct_rev(fct_infreq(Concept)))) + 
+  geom_bar(stat="count", aes(fill=publication_type)) +
+  xlab("Cognitive Concepts") +
+  scale_y_continuous("Number of publications", breaks = scales::breaks_extended(10)) +
+  coord_flip() + 
+  scale_fill_discrete(name = "Publication outlets", labels = c("Books", "Conferences", "Journals", "Workshops", "Magazines")) +
+  theme_minimal()
+
+ggsave("PDFs/outlets_concepts.pdf")
+  
+   
+```
+
+```{r}
+data %>% 
+  filter(publication_type %in% c("C", "J")) %>% 
+  group_by(publication_type, Series) %>% 
+  tally() %>% 
+  arrange(publication_type, Series, n) %>% 
+  top_n(5) %>% 
+  kable(col.names = c("Outlet", "Name", "#"))
+```
+
