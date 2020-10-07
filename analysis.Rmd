@@ -22,7 +22,7 @@ library(scales)
 library(ggsci)
 ```
 ```{r}
-data <- read_excel("data/data_IEEE.xlsx", skip = 1, sheet = 1)
+data <- read_excel("data/data_post_IEEE.xlsx", skip = 1, sheet = 1)
 data <- data %>% filter(is.na(Exclude)) 
 # Years without any publication (for easy slicing)
 years_no_publications <- c("1974",
