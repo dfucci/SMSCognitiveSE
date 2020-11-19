@@ -1,7 +1,7 @@
 ---
 title: 'Cognitive Aspects of Software Development: a SMS'
 output:
-  html_document:
+  html_document: 
     df_print: tibble
     fig_caption: yes
     code_folding: hide
@@ -26,7 +26,7 @@ library(paletti)
 library(pals)
 ```
 ```{r}
-data <- read_excel("data/data_post_IEEE_fix.xlsx", skip = 1, sheet = 1)
+data <- read_excel("data/data_post_IEEE_fix.xlsx", skip = 1, sheet = "Consolidated extraction and cla")
 data <- data %>% filter(is.na(Exclude))
 # Years without any publication (for easy slicing)
 years_no_publications <- c("1974",
@@ -371,6 +371,7 @@ data %>%
   distinct(SWEBOK, Concept, freq) %>%
   group_by(SWEBOK, Concept) %>%
   summarize(total=sum(freq)) %>%
+  filter(total > 0) %>% 
   ungroup() %>%
   ggplot(aes(fct_relevel(SWEBOK, swebok_areas_labels_no_foundation), fct_rev(Concept), fill=total)) +
   geom_tile() + scale_fill_continuous(low="#fff9f7", high="red") +
