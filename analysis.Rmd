@@ -111,6 +111,20 @@ measures_labels <- c("Qualit. measures",
                       "Subjective ratings",
                       "Behavioral meas.")
 
+paper_types <- c("Solution Proposal (example)", 
+                 "Empirical Study", 
+                 "Experience Papers",
+                 "Philosophical Papers",
+                 "Opinion Papers")
+
+
+high_level_concepts <- c("Attention", 
+                         "Memory",
+                         "Cognitive load",
+                         "Perception",
+                         "Reasoning",
+                         "Cognitive biases",
+                         "Knowledge")
 # COLORS
 tol9qualitative <- c("#332288",
                   "#88CCEE",
@@ -507,6 +521,7 @@ ggsave("PDFs/outlets_concepts.pdf",  dpi = "screen",  width = unit(10, "inch"), 
 
 
 ```
+
 
 ```{r}
 data %>%
