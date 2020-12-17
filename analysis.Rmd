@@ -365,7 +365,7 @@ data %>%
   mutate_all(replace_na,0) %>%
   gather(Taxonomy, value2, cognitive_concepts_labels) %>%
   add_high_level_concepts_to_data() %>%
-  gather(SWEBOK, value, swebok_areas_labels_no_foundation) %>%
+  gather(SWEBOK, value, all_of(swebok_areas_labels_no_foundation)) %>%
   count(SWEBOK, Concept, value, value2) %>%
   mutate(freq=ifelse(value==1 & value2==1, n, 0)) %>%
   distinct(SWEBOK, Concept, freq) %>%
