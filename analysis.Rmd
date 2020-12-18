@@ -532,3 +532,27 @@ data %>%
   kable(col.names = c("Outlet", "#"))
 ```
 
+```{r}
+data %>% 
+  select(paper_types, high_level_concepts) %>% 
+  mutate_all(replace_na, 0) %>% 
+  gather(Taxonomy, value2, high_level_concepts) %>% 
+  gather(Type, value, all_of(paper_types)) %>% 
+  count(Type, Taxonomy, value, value2) %>% 
+  mutate(freq=ifelse(value==1 & value2==1, n, 0)) %>% 
+  distinct(Type, Taxonomy, freq) %>% 
+  group_by(Type, Taxonomy)  %>% 
+  summarize(total=sum(freq)) %>% 
+  filter(total > 0) %>% 
+  ungroup() %>% 
+  ggplot(aes(reorder(Taxonomy, total, function(x){sum(x)}), total, fill=Type)) + 
+  geom_bar(stat="identity") +
+  coord_flip() + 
+  xlab("Cognitive Concepts") + 
+  ylab("Number of publications") + 
+  scale_fill_discrete(name = "Paper Type") + 
+  theme_minimal()
+
+ggsave("PDFs/taxonomy_paper_type.pdf",  dpi = "screen",  width = unit(10, "inch"), height = unit(6.5, "inch"))
+```
+
