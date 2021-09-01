@@ -20,7 +20,7 @@ library(svglite)
 library(plotly)
 library(scales)
 library(ggsci)
-
+library(RColorBrewer)
 # for color palettes
 library(paletti)
 library(pals)
@@ -76,6 +76,22 @@ swebok_areas_labels_long = c("Requirements",
                                 "Software Quality",
                                 "SE Prof. Practice",
                                 "SE Economics")
+
+swebok_areas_labels_long_all = c("Computing Found.",
+                                 "Engineering Found.",
+                                 "Mathematical Found.",
+                                "Construction",
+                                "Config. Mgmt.",
+                                "Design",
+                                "SE Economics",
+                                "SE Mgmt.",
+                                "SE Models&Methods",
+                                "SE Processes",
+                                "SE Prof. Practice",
+                                "Maintainance",
+                                "Software Quality",
+                                "Requirements",
+                                "Testing")
 
 cognitive_concepts_labels <- c("Attention",
                                "Selective attention",
@@ -293,7 +309,8 @@ Number of publications per year according to SWEBOK areas
 ```{r}
 # Creating a temp dataset with missing publications years (i.e., year for which there was no publication)
 
-cols_fill_years_swebok  <- get_scale_fill(get_pal(palette(col25)))
+colourCount = length(swebok_areas_labels_long_all)
+getPalette = colorRampPalette(brewer.pal(9, "Set1"))
 
 data %>%
   filter(is.na(Exclude)) %>%
@@ -305,9 +322,16 @@ data %>%
   summarise(total=sum(publications)) %>%
   ggplot(aes(x=as.factor(Year), fill=SWEBOK, y=total)) +
   geom_bar(stat="sum") +
-  xlab("Year") + ylab("Publications") + scale_fill_discrete(name = "SWEBOK Areas") +
-  guides(size = F) + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 6)) +
- cols_fill_years_swebok()
+  xlab("Year") + ylab("Publications") + 
+  scale_fill_manual(values = getPalette(colourCount), labels=swebok_areas_labels_long_all) +
+  scale_y_continuous(breaks = seq(1,33,2)) +
+  guides(size = F) + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 6)) + 
+  theme(legend.key.size = unit(0.4, 'cm'), #change legend key size
+        legend.key.height = unit(0.3, 'cm'), #change legend key height
+        legend.key.width = unit(0.5, 'cm'), #change legend key width
+        legend.title = element_text(size=10), #change legend title font size
+        legend.text = element_text(size=8),
+        legend.position=c(.15,.7)) 
 ggsave("PDFs/years_swebok.pdf", dpi = "screen",  width = unit(10, "inch"), height = unit(6.5, "inch"))
 ```
 
@@ -389,7 +413,7 @@ data %>%
   ungroup() %>%
   ggplot(aes(fct_relevel(SWEBOK, swebok_areas_labels_no_foundation), fct_rev(Concept), fill=total)) +
   geom_tile() + scale_fill_continuous(low="#fff9f7", high="red") +
-  xlab("SWEBOK areas") + ylab("Cognitive Concepts") + guides(fill=guide_legend(title="")) +
+  xlab("SWEBOK areas") + ylab("Cognitive Concepts") + guides(fill=guide_legend(title="Publications")) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8)) +
   scale_x_discrete(labels = swebok_areas_labels_long)
@@ -416,7 +440,7 @@ data %>%
   geom_tile() +
   geom_vline(xintercept = 4.5, size=0.5,  color="darkgrey") +
   xlab("Cognitive Assessment Procedures") + ylab("Cognitive Concepts") +
-  guides(fill=guide_legend(title="")) +  # scale_x_discrete(labels=c("Fieldwork", "Interview", "Task-based", "Open observation", "Others", "Task performance", "Physiological meas.", "Subjective ratings", "Behavioral meas.", "Others")) + # not using measure_lables here since we need a catch-all "Others" category
+  guides(fill=guide_legend(title="Publications")) +  # scale_x_discrete(labels=c("Fieldwork", "Interview", "Task-based", "Open observation", "Others", "Task performance", "Physiological meas.", "Subjective ratings", "Behavioral meas.", "Others")) + # not using measure_lables here since we need a catch-all "Others" category
    scale_fill_continuous(low="#fff9f7", high="darkgreen") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 8)) +
@@ -491,12 +515,13 @@ data %>%
   filter(!is.na(publication_type)) %>%
   ggplot(aes(x=fct_rev(fct_infreq(publication_type)))) +
   geom_bar(stat="count", width=.4) +
+  geom_text(stat='count', aes(label=..count..), hjust=-0.3, color="black", size = 3) +
   scale_x_discrete("Publication outlets", labels=c("Magazines", "Books",  "Workshops", "Conferences", "Journals" )) +
   scale_y_continuous("Number of publications", breaks = scales::breaks_extended(10)) +
   coord_flip() +
   theme_minimal() +
-  theme(axis.text.y = element_text(angle = 90, hjust=.5, vjust=-0.3))
-
+  theme(axis.text.y = element_text(angle = 90, hjust=.5, vjust=-0.3)) 
+  
 ggsave("PDFs/outlets.pdf",  dpi = "screen",  width = unit(10, "inch"), height = unit(6.5, "inch"))
 
 ```
@@ -514,8 +539,19 @@ data %>%
   xlab("Cognitive Concepts") +
   scale_y_continuous("Number of publications", breaks = scales::breaks_extended(10)) +
   coord_flip() +
-  scale_fill_discrete(name = "Publication outlets", labels = c("Books", "Conferences", "Journals", "Workshops", "Magazines")) +
-  theme_minimal()
+  # scale_fill_discrete(name = "Publication outlets", labels = c("Books", "Conferences", "Journals", "Workshops", "Magazines")) +
+   scale_fill_brewer(palette = "Dark2", labels=c("Books", "Conferences", "Journals", "Workshops", "Magazines")) + 
+  scale_y_continuous(breaks = seq(0,170,10)) +
+  theme_minimal() + 
+  theme(legend.key.size = unit(0.7, 'cm'), #change legend key size
+        legend.key.height = unit(0.6, 'cm'), #change legend key height
+        legend.key.width = unit(0.8, 'cm'), #change legend key width
+        legend.title = element_text(size=13), #change legend title font size
+        legend.text = element_text(size=11),
+        legend.position=c(.8,.2)) +
+  labs(fill = "Publication Type") + 
+  ylab(label = "Number of publications")
+
 
 ggsave("PDFs/outlets_concepts.pdf",  dpi = "screen",  width = unit(10, "inch"), height = unit(6.5, "inch"))
 
@@ -550,8 +586,15 @@ data %>%
   coord_flip() + 
   xlab("Cognitive Concepts") + 
   ylab("Number of publications") + 
-  scale_fill_discrete(name = "Paper Type") + 
-  theme_minimal()
+  scale_fill_brewer(palette = "Dark2") +
+#  scale_fill_manual(values=c("#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00")) +
+  theme_minimal() +
+  theme(legend.key.size = unit(0.7, 'cm'), #change legend key size
+        legend.key.height = unit(0.6, 'cm'), #change legend key height
+        legend.key.width = unit(0.8, 'cm'), #change legend key width
+        legend.title = element_text(size=13), #change legend title font size
+        legend.text = element_text(size=11),
+        legend.position=c(.8,.2)) 
 
 ggsave("PDFs/taxonomy_paper_type.pdf",  dpi = "screen",  width = unit(10, "inch"), height = unit(6.5, "inch"))
 ```
