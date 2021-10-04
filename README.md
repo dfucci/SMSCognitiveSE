@@ -1,4 +1,8 @@
 # SMSCognitiveSE
+
+[![DOI](https://zenodo.org/badge/213070428.svg)](https://zenodo.org/badge/latestdoi/213070428)
+
+
 This repository contains the script and dataset to reproduce the analysis of the paper _Cognition in Software Engineering: A Taxonomy and Survey of a Half-Century of Research_
 
 - Data contains the spreadsheet reporting the information extracted from the primary studies
