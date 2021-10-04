@@ -1,5 +1,5 @@
 ---
-title: 'Cognitive Aspects of Software Development: a SMS'
+title: 'Replication Script for "Cognition in Software Engineering: A Taxonomy and Survey of a Half-Century of Research."'
 output:
   html_document: 
     df_print: tibble
@@ -30,7 +30,7 @@ loadfonts(device = "pdf")
 par(family = "LM Roman 10")
 ```
 ```{r}
-data <- read_excel("data/data_post_IEEE_fix.xlsx", skip = 1, sheet = "Extraction and classification (")
+data <- read_excel("data/SMS_cognition_dataset.xlsx", skip = 1, sheet = "Extraction and classification (")
 data <- data %>% filter(is.na(Exclude))
 # Years without any publication (for easy slicing)
 years_no_publications <- c("1974",
