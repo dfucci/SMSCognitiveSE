@@ -31,3 +31,4 @@ vignettes/*.pdf
 rsconnect/
 data/.dolt/*
 data/.sqlhistory
+*.pdf
