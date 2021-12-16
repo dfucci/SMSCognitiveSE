@@ -552,8 +552,8 @@ data %>%
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 14), axis.title = element_text(size = 14), axis.text.y = element_text(size = 14)) +
   theme(legend.position = "none") + 
   annotate(geom="text", x=6.5, y=0.7, label="Quantitative", size=6, alpha=0.6) +
-  annotate(geom="text", x=2.5, y=0.7, label="Qualitative", size=6, alpha=0.6) +
-ggsave("PDFs/taxonomy_method_cooccurences.pdf",  dpi = "screen",  width = unit(10, "inch"), height = unit(6.5, "inch"))
+  annotate(geom="text", x=2.5, y=0.7, label="Qualitative", size=6, alpha=0.6) 
+  ggsave("PDFs/taxonomy_method_cooccurences.pdf",  dpi = "screen",  width = unit(10, "inch"), height = unit(6.5, "inch"))
 ```
 ```{r}
 data.academia %>%
@@ -579,7 +579,7 @@ data.academia %>%
   theme(legend.position = "none") + 
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 14), axis.text.y = element_text(size = 14), axis.title = element_text(size = 14)) +
   annotate(geom="text", x=5.5, y=0.7, label="Quantitative", size=6, alpha=0.6) +
-  annotate(geom="text", x=2, y=0.7, label="Qualitative", size=6, alpha=0.6) +
+  annotate(geom="text", x=2, y=0.7, label="Qualitative", size=6, alpha=0.6) 
 ggsave("PDFs/taxonomy_method_cooccurences_academia.pdf",  dpi = "screen",  width = unit(10, "inch"), height = unit(6.5, "inch"))
 
 data.industry %>%
@@ -604,7 +604,7 @@ data.industry %>%
   theme(axis.text.x = element_text(angle = 30, hjust = 1, size = 14), axis.text.y = element_text(size = 14), axis.title = element_text(size = 14)) +
   theme(legend.title = element_text(size = 14), legend.text = element_text(size = 14)) +
   annotate(geom="text", x=6.5, y=0.7, label="Quantitative", size=6, alpha=0.6) +
-  annotate(geom="text", x=2.5, y=0.7, label="Qualitative", size=6, alpha=0.6) +
+  annotate(geom="text", x=2.5, y=0.7, label="Qualitative", size=6, alpha=0.6) 
 ggsave("PDFs/taxonomy_method_cooccurences_industry.pdf",  dpi = "screen",  width = unit(10, "inch"), height = unit(6.5, "inch"))
 ```
 
