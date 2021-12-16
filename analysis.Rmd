@@ -180,6 +180,25 @@ col25 <- c(
   "darkturquoise", "green1", "yellow4", "yellow3",
   "darkorange4", "brown"
 )
+
+
+color_scheme_fabian <- c(
+  "#f90000",
+  "#9b46dc",
+  "#0089ac",
+  "#00a665",
+  "#5a37cc",
+  "#27de27",
+  "#e13c41",
+  "#ff7300",
+  "#ffc800",
+  "#fafa00",
+  "#b98219",
+  "#d2b49b",
+  "#fc6fac",
+  "#e17373",
+  "#9a9a9a"
+)
 # Necessary for groupying by high-level category
 add_high_level_concepts_to_data <- function(data) {
   data %>%
@@ -344,7 +363,7 @@ data %>%
   ggplot(aes(x=as.factor(Year), fill=SWEBOK, y=total)) +
   geom_bar(stat="sum") +
   xlab("Year") + ylab("Publications") + 
-  scale_fill_manual(values = getPalette(colourCount), labels=swebok_areas_labels_long_all) +
+  scale_fill_manual(values = color_scheme_fabian, labels=swebok_areas_labels_long_all) +
   scale_y_continuous(breaks = seq(1,33,2)) +
   theme_minimal() +
   guides(size = F) + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 6)) + 
