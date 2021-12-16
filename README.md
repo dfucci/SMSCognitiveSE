@@ -1,5 +1,9 @@
 # SMSCognitiveSE
-This repository contains the script and dataset to reproduce the analysis of the paper _Cognition in Software Engineering: A Taxonomy and Survey of a Half-Century of Research_
+
+[![DOI](https://zenodo.org/badge/213070428.svg)](https://zenodo.org/badge/latestdoi/213070428)
+
+
+This repository contains the script and dataset to reproduce the analysis of the paper _Cognition in Software Engineering: A Taxonomy and Survey of a Half-Century of Research_ by Fagerholm, Fabian; Felderer, Michael; Fucci, Davide; Unterkalmsteiner, Michael; Marculescu, Bodgan; Martini, Markus; Wallgren Tengberg, Lars Goran; Feldt, Robert; Schillinger, Bettina; Nagyvardi, Balazs; Khattak, Jehan
 
 - Data contains the spreadsheet reporting the information extracted from the primary studies
 - PDFs contains the generated PDF for the figures reported in the paper
